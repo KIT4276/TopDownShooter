@@ -12,6 +12,7 @@ namespace TDS
         protected bool _isMoving;
         protected bool _inAnimation; //  --------------------------todo _animator
         protected Vector3 _movement;
+        protected GameObject _projectile;
 
 
         [SerializeField]
@@ -31,6 +32,12 @@ namespace TDS
         protected void OnMove()
         {
             transform.position += _movement * unitParams.MoveSpeed * Time.deltaTime;
+        }
+
+        protected void ToShoot(Transform parent, Transform weapon)
+        {
+            string path = "Prefabs/Projectile";// пока так
+            _projectile = Instantiate(Resources.Load<GameObject>(path), weapon.transform.position, weapon.transform.rotation, parent);
         }
 
         public void SetDamage(float damage)

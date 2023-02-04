@@ -60,7 +60,7 @@ namespace TDS
                     ""name"": ""Aiming"",
                     ""type"": ""Value"",
                     ""id"": ""63e9440b-295c-4bbc-9ed6-a5b45efc7b3a"",
-                    ""expectedControlType"": ""Delta"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -156,7 +156,7 @@ namespace TDS
                 {
                     ""name"": """",
                     ""id"": ""31c0512c-b7e2-4b65-a50b-d71b0bccc4a9"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

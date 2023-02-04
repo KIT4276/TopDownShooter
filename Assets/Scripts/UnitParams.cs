@@ -11,5 +11,6 @@ namespace TDS
         public SideType SideType;
         public float MaxHealth = 20f;
         public float _stopDistance = 1;
+        public float _rotateSpeed = 3f;
     }
 }
