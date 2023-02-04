@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 238320496254834219}
   - component: {fileID: 238320496254834231}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: FurtherProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
-  _minFiringRange: 10
-  _maxFiringRange: 30
-  _damage: 3
+  _lifeTime: 5
+  _minDamage: 10
+  _maxDamage: 40
+  _projectileType: 2
+  _transitDistance: 25

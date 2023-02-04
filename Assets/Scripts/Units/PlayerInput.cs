@@ -17,9 +17,9 @@ namespace TDS
         private Vector3 _targetForLookAt;
 
         [SerializeField]
-        private Transform _weapon;
+        private Transform _weapon; // Пока так
         [SerializeField]
-        private Transform _projectilesPool;
+        private Transform _projectilesPool; // Пока нужно для контроля, потом убрать
 
         private void Awake()
         {

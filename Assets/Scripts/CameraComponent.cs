@@ -17,9 +17,9 @@ namespace TDS
             transform.parent = null;
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
-            transform.position = Vector3.Lerp(transform.position, _target.position, _speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, _target.position, _speed * Time.fixedDeltaTime);
             //transform.position = _target.position;
         }
     }

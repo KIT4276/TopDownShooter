@@ -36,7 +36,7 @@ namespace TDS
 
         protected void ToShoot(Transform parent, Transform weapon)
         {
-            string path = "Prefabs/Projectile";// пока так
+            string path = "Prefabs/ТearProjectile";// пока так
             _projectile = Instantiate(Resources.Load<GameObject>(path), weapon.transform.position, weapon.transform.rotation, parent);
         }
 
