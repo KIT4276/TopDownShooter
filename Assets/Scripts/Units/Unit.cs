@@ -17,6 +17,8 @@ namespace TDS
 
         [SerializeField]
         protected UnitParams unitParams;
+        [SerializeField]
+        protected Animator _animator;
 
         protected void Start()
         {
@@ -36,8 +38,26 @@ namespace TDS
 
         protected void ToShoot(Transform parent, Transform weapon)
         {
+            OnShootAnimation();
             string path = "Prefabs/“earProjectile";// ÔÓÍ‡ Ú‡Í
             _projectile = Instantiate(Resources.Load<GameObject>(path), weapon.transform.position, weapon.transform.rotation, parent);
+        }
+
+        protected void OnMoveAnimation()
+        {
+            _animator.SetBool("Moving", true);
+            _isMoving = true;
+        }
+
+        public void StopMoving()
+        {
+            _animator.SetBool("Moving", false);
+            _isMoving = false;
+        }
+
+        private void OnShootAnimation()
+        {
+            _animator.SetTrigger("Shoot");
         }
 
         public void SetDamage(float damage)

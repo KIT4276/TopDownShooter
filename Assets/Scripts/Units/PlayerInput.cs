@@ -37,7 +37,8 @@ namespace TDS
         {
             _direction = _controls.PlayerInputMapp.Move.ReadValue<Vector2>();
             _movement = new Vector3(_direction.x, 0f, _direction.y);
-
+            if (_movement != new Vector3(0f, 0f, 0f)) OnMoveAnimation();
+            else StopMoving();
             OnRotate();
         }
 
