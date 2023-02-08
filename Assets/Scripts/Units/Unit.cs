@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace TDS
 {
+    [RequireComponent(typeof(UnitParams))] 
     public class Unit : MonoBehaviour
     {
         private float _maxHealth;
 
         protected float _currentHealth;
         protected bool _isMoving;
-        protected bool _inAnimation; //  --------------------------todo _animator
         protected Vector3 _movement;
         protected GameObject _projectile;
 
