@@ -10,9 +10,9 @@ namespace TDS
         private float _maxHealth;
 
         protected float _currentHealth;
-        protected bool _isMoving;
-        protected Vector3 _movement;
+        
         protected GameObject _projectile;
+        protected ActionType _actionType;
 
 
         [SerializeField]
@@ -26,14 +26,36 @@ namespace TDS
             _currentHealth = _maxHealth;
         }
 
-        protected  void FixedUpdate()
+        protected  void Update()
         {
-            OnMove();
+            UpdateAnimation();
         }
 
-        protected void OnMove()
+        private void UpdateAnimation()
         {
-            transform.position += _movement * unitParams.MoveSpeed * Time.deltaTime;
+            switch (_actionType)
+            {
+                case ActionType.Idle:
+                    _animator.SetBool("Move", false);
+                    break;
+                case ActionType.Move:
+                    _animator.SetBool("Move", true);
+                    break;
+                case ActionType.Shooting:
+                    _animator.SetTrigger("Shoot");
+                    break;
+                case ActionType.Interact:
+                    _animator.SetTrigger("Interact");
+                    break;
+                case ActionType.Die:
+                    _animator.SetTrigger("Die");
+                    break;
+                case ActionType.HitReact:
+                    _animator.SetTrigger("HitReact");
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected void ToShoot(Transform parent, Transform weapon)
@@ -43,17 +65,17 @@ namespace TDS
             _projectile = Instantiate(Resources.Load<GameObject>(path), weapon.transform.position, weapon.transform.rotation, parent);
         }
 
-        protected void OnMoveAnimation()
-        {
-            _animator.SetBool("Moving", true);
-            _isMoving = true;
-        }
+        //protected void OnMoveAnimation()
+        //{
+        //    if() _animator.SetBool("Moving", true);
+            
+        //}
 
-        public void StopMoving()
-        {
-            _animator.SetBool("Moving", false);
-            _isMoving = false;
-        }
+        //public void StopMoving()
+        //{
+        //    _animator.SetBool("Moving", false);
+            
+        //}
 
         private void OnShootAnimation()
         {

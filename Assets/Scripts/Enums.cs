@@ -27,13 +27,18 @@ namespace TDS
 
     public enum AISttateType : byte
     {
-        None = 0,
-        Wait = 1, 
-        Move_Seek = 230,
-        Move_Flee = 231,// мб не понадобится
-        Move_Arrival = 232,
-        Move_Wander = 233,
-        Move_Pursuing = 234,// мб не понадобится
-        Move_Evading = 235,// мб не понадобится
+        Seek = 0,
+        Flee = 1,
+        Wander = 2,
+    }
+
+    public enum ActionType : byte
+    {
+        Idle = 0, // ожидание
+        Move = 1, // хотьба
+        Shooting = 2, // стрельба
+        Interact = 3, // взаимодействие
+        Die = 4,
+        HitReact = 5, // ранение
     }
 }

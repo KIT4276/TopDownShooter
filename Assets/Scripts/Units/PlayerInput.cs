@@ -15,6 +15,7 @@ namespace TDS
         private Vector3 _screenMousePosition;
         private Vector3 _worldMmousePosition;
         private Vector3 _targetForLookAt;
+        protected Vector3 _movement;
 
         [SerializeField]
         private Transform _weapon; // Пока так
@@ -28,18 +29,25 @@ namespace TDS
             _camera = Camera.main;
         }
 
-        private void Fire(InputAction.CallbackContext obj)
-        {
-            ToShoot(_projectilesPool, _weapon);
-        }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _direction = _controls.PlayerInputMapp.Move.ReadValue<Vector2>();
             _movement = new Vector3(_direction.x, 0f, _direction.y);
-            if (_movement != new Vector3(0f, 0f, 0f)) OnMoveAnimation();
-            else StopMoving();
+            OnMove();
             OnRotate();
+        }
+
+        private void OnMove()
+        {
+            transform.position += _movement * unitParams.MoveSpeed * Time.deltaTime;
+            if (_movement != new Vector3(0f, 0f, 0f)) _actionType = ActionType.Move;
+            else _actionType = ActionType.Idle;
+        }
+
+        private void Fire(InputAction.CallbackContext obj)
+        {
+            ToShoot(_projectilesPool, _weapon);
         }
 
         private void OnRotate()
