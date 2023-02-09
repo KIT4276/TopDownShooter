@@ -16,13 +16,16 @@ namespace TDS
         //[SerializeField]
         //private Animator _animator;
         [SerializeField]
-        private Transform _player;
+        private Transform _player; //_------------------------------------------мдЄтс€€ использовать FindObject
         [SerializeField]
         private Transform _protectedObject;
         [SerializeField]
         private float _detectionDistance = 15f;
         [SerializeField]
         private float _attackDistance = 10f;
+
+        [Space, SerializeField]
+        private AISttateType _aISttateType;
 
         private void Awake()
         {
@@ -31,14 +34,19 @@ namespace TDS
 
         private void FixedUpdate()
         {
+            if (_aISttateType == AISttateType.Seek) SeekMMove();
+        }
+
+        private void SeekMMove()
+        {
             transform.LookAt(_navMeshAgent.destination);
             _distance = Vector3.Distance(_player.position, transform.position);
-            
 
+            // очень сомнительна€ конструкци€
             if (_distance >= _detectionDistance)
             {
                 _navMeshAgent.destination = _protectedObject.position;
-                if(_distance > _navMeshAgent.stoppingDistance)
+                if (_distance > _navMeshAgent.stoppingDistance)
                 {
                     _actionType = ActionType.Move;
                 }
