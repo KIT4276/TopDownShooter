@@ -16,7 +16,7 @@ namespace TDS
         //[SerializeField]
         //private Animator _animator;
         [SerializeField]
-        private Transform _player; //_------------------------------------------мдЄтс€€ использовать FindObject
+        private Transform _player; //------------------------------------------придЄтс€ использовать FindObject
         [SerializeField]
         private Transform _protectedObject;
         [SerializeField]

@@ -18,7 +18,7 @@ namespace TDS
         protected Vector3 _movement;
 
         [SerializeField]
-        private Transform _weapon; // Пока так
+        private Transform _weaponTransform; // Пока так
         [SerializeField]
         private Transform _projectilesPool; // Пока нужно для контроля, потом убрать
 
@@ -47,7 +47,7 @@ namespace TDS
 
         private void Fire(InputAction.CallbackContext obj)
         {
-            ToShoot(_projectilesPool, _weapon);
+            ToShoot(_projectilesPool, _weaponTransform);
         }
 
         private void OnRotate()

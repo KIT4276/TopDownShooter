@@ -7,23 +7,23 @@ namespace TDS
     [RequireComponent(typeof(UnitParams))] 
     public class Unit : MonoBehaviour
     {
-        private float _maxHealth;
-
         protected float _currentHealth;
         
         protected GameObject _projectile;
         protected ActionType _actionType;
+        protected bool _isShotPossible;
 
 
         [SerializeField]
         protected UnitParams unitParams;
         [SerializeField]
         protected Animator _animator;
+        [SerializeField]
+        protected Weapon _weaponClass;
 
         protected void Start()
         {
-            _maxHealth = unitParams.MaxHealth;
-            _currentHealth = _maxHealth;
+            _currentHealth = unitParams._maxHealth;
         }
 
         protected  void Update()
@@ -60,22 +60,22 @@ namespace TDS
 
         protected void ToShoot(Transform parent, Transform weapon)
         {
-            OnShootAnimation();
-            string path = "Prefabs/“earProjectile";// ÔÓÍ‡ Ú‡Í
-            _projectile = Instantiate(Resources.Load<GameObject>(path), weapon.transform.position, weapon.transform.rotation, parent);
+            _isShotPossible = _weaponClass.CanShoot();
+
+            if (_isShotPossible)
+            {
+                OnShootAnimation();
+                _projectile = Instantiate(Resources.Load<GameObject>(_weaponClass.GetProjectile()),
+                    weapon.transform.position, weapon.transform.rotation, parent);
+                _weaponClass.CallOnShoot();
+            }
+#if UNITY_EDITOR
+            else
+            {
+                Debug.Log(" -------------- ÕÂÚ Ô‡ÚÓÌÓ‚ ‰Îˇ ÒÚÂÎ¸·˚---------------");
+            }
+#endif
         }
-
-        //protected void OnMoveAnimation()
-        //{
-        //    if() _animator.SetBool("Moving", true);
-            
-        //}
-
-        //public void StopMoving()
-        //{
-        //    _animator.SetBool("Moving", false);
-            
-        //}
 
         private void OnShootAnimation()
         {
@@ -88,7 +88,7 @@ namespace TDS
         public void RestoreHealth(float restore)
         {
             _currentHealth += restore;
-            if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
+            if (_currentHealth > unitParams._maxHealth) _currentHealth = unitParams._maxHealth;
         }
     }
 }
