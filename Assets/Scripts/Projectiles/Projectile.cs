@@ -24,6 +24,8 @@ namespace TDS
 
         public float Damage { get; private set; }
 
+        public SideType SideType { get; private set; }
+
         private void Start()
         {
             StartCoroutine(DestroyProjectile());

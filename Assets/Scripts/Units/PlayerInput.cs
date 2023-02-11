@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace TDS
 {
@@ -21,12 +22,15 @@ namespace TDS
         private Transform _weaponTransform; // Пока так
         [SerializeField]
         private Transform _projectilesPool; // Пока нужно для контроля, потом убрать
+        [SerializeField]
+        private Text _healthText;
 
         private void Awake()
         {
             _controls = new PlayerControls();
             _controls.PlayerInputMapp.Attack.performed += Fire;
             _camera = Camera.main;
+           
         }
 
 
@@ -36,6 +40,7 @@ namespace TDS
             _movement = new Vector3(_direction.x, 0f, _direction.y);
             OnMove();
             OnRotate();
+            _healthText.text = _currentHealth.ToString();
         }
 
         private void OnMove()

@@ -31,7 +31,7 @@ namespace TDS
             UpdateAnimation();
         }
 
-        private void UpdateAnimation()
+        protected void UpdateAnimation()
         {
             switch (_actionType)
             {
@@ -77,7 +77,7 @@ namespace TDS
 #endif
         }
 
-        private void OnShootAnimation()
+        protected void OnShootAnimation()
         {
             _animator.SetTrigger("Shoot");
         }
@@ -91,11 +91,18 @@ namespace TDS
                 case TriggerType.Non:
                     break;
                 case TriggerType.Ammo:
-                    _weaponClass.AddAmmo(other.GetComponent<Ammo>().GetValue());
+                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue());
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Projectile:
+                    if(other.GetComponent<Projectile>().SideType != unitParams._sideType)
                     _currentHealth -= other.GetComponent<Projectile>().Damage;
+                    Destroy(other.gameObject);
+                    break;
+                case TriggerType.AidKit:
+                    if (TryGetComponent<PlayerInput>(out var r))
+                        _currentHealth += other.GetComponent<TriggerComponent>().GetValue();
+                    Destroy(other.gameObject);
                     break;
                 default:
                     break;
@@ -103,7 +110,15 @@ namespace TDS
         }
 
         public void SetDamage(float damage)
-            => _currentHealth -= damage;
+        {
+            _currentHealth -= damage;
+            if (_currentHealth <= 0) Death();
+        }
+
+        protected void Death()
+        {
+            //todo
+        }
 
         public void RestoreHealth(float restore)
         {

@@ -46,5 +46,6 @@ namespace TDS
         Non = 0,
         Ammo = 1,
         Projectile = 2,
+        AidKit = 3,
     }
 }
