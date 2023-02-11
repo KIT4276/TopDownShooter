@@ -40,4 +40,11 @@ namespace TDS
         Die = 4,
         HitReact = 5, // ранение
     }
+
+    public enum TriggerType : byte
+    {
+        Non = 0,
+        Ammo = 1,
+        Projectile = 2,
+    }
 }

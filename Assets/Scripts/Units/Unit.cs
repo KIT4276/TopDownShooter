@@ -60,7 +60,7 @@ namespace TDS
 
         protected void ToShoot(Transform parent, Transform weapon)
         {
-            _isShotPossible = _weaponClass.CanShoot();
+            _isShotPossible = _weaponClass.GetAbilityToShoot();
 
             if (_isShotPossible)
             {
@@ -80,6 +80,26 @@ namespace TDS
         private void OnShootAnimation()
         {
             _animator.SetTrigger("Shoot");
+        }
+
+        protected void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("OnTriggerEnter");
+
+            switch (other.GetComponent<TriggerComponent>().GetTriggerType())
+            {
+                case TriggerType.Non:
+                    break;
+                case TriggerType.Ammo:
+                    _weaponClass.AddAmmo(other.GetComponent<Ammo>().GetValue());
+                    Destroy(other.gameObject);
+                    break;
+                case TriggerType.Projectile:
+                    _currentHealth -= other.GetComponent<Projectile>().Damage;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void SetDamage(float damage)

@@ -22,15 +22,10 @@ namespace TDS
         [SerializeField]
         private Text _leftAmmoText;
 
-        //private event SimpleHandle Shoot;
-
-        //public void CallOnShootEvent() => Shoot?.Invoke();
-
         public void CallOnShoot() => AmmoStatusUpdate();
 
         private void Start()
         {
-            //Shoot += AmmoStatusUpdate;
             _ammoInMag = _magazineCapacity;
         }
 
@@ -43,20 +38,7 @@ namespace TDS
         private void AmmoStatusUpdate()
         {
             _ammoInMag--;
-            
-            if (_ammoInMag <= 0)
-            {
-                if(_leftAmmo < _magazineCapacity)
-                {
-                    _ammoInMag = _leftAmmo;
-                    _leftAmmo = 0;
-                }
-                else
-                {
-                    _leftAmmo -= _magazineCapacity;
-                    _ammoInMag = _magazineCapacity;
-                }
-            }
+            if (_ammoInMag <= 0) Reload();
         }
 
         public string GetProjectile()
@@ -76,21 +58,31 @@ namespace TDS
             return _pathToPrefab;
         }
 
-        public bool CanShoot()
+        public bool GetAbilityToShoot()
         {
             if (_leftAmmo != 0 || _ammoInMag != 0) return true;
             else return false;
         }
 
-
-        public float GetCapacity()
+        public void AddAmmo(float value)
         {
-            return _magazineCapacity;
+            Debug.Log("AddAmmo");
+            _leftAmmo += value;
+            if (_ammoInMag == 0) Reload();
         }
 
-        //private void OnDestroy()
-        //{
-        //    Shoot -= CallOnShootEvent;
-        //}
+        private void Reload()
+        {
+            if (_leftAmmo < _magazineCapacity)
+            {
+                _ammoInMag = _leftAmmo;
+                _leftAmmo = 0;
+            }
+            else
+            {
+                _leftAmmo -= _magazineCapacity;
+                _ammoInMag = _magazineCapacity;
+            }
+        }
     }
 }
