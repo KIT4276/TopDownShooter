@@ -66,7 +66,6 @@ namespace TDS
 
         public void AddAmmo(float value)
         {
-            Debug.Log("AddAmmo");
             _leftAmmo += value;
             if (_ammoInMag == 0) Reload();
         }

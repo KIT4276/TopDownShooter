@@ -24,13 +24,14 @@ namespace TDS
         private Transform _projectilesPool; // Пока нужно для контроля, потом убрать
         [SerializeField]
         private Text _healthText;
+        [SerializeField]
+        private Inventory _inventory;
 
         private void Awake()
         {
             _controls = new PlayerControls();
             _controls.PlayerInputMapp.Attack.performed += Fire;
             _camera = Camera.main;
-           
         }
 
 
@@ -64,6 +65,26 @@ namespace TDS
             transform.LookAt(_targetForLookAt);
         }
 
+        protected override void OnTriggerEnter(Collider other)
+        {
+            base.OnTriggerEnter(other);
+
+            switch (_triggerType)
+            {
+                case TriggerType.Ammo:
+                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue());
+                    break;
+                case TriggerType.AidKit:
+                    _currentHealth += other.GetComponent<TriggerComponent>().GetValue();
+                    break;
+                case TriggerType.Docs:
+                    _inventory.AddDocs(other.GetComponent<Transform>().name);
+                    break;
+                default:
+                    break;
+            }
+            Destroy(other.gameObject);
+        }
 
         private void OnEnable()
            => _controls.PlayerInputMapp.Enable();

@@ -47,5 +47,6 @@ namespace TDS
         Ammo = 1,
         Projectile = 2,
         AidKit = 3,
+        Docs = 4,
     }
 }

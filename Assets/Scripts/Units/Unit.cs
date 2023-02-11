@@ -11,15 +11,17 @@ namespace TDS
         
         protected GameObject _projectile;
         protected ActionType _actionType;
-        protected bool _isShotPossible;
+        protected bool _isShotPossible = true;
+        protected TriggerType _triggerType;
 
-
+        
         [SerializeField]
         protected UnitParams unitParams;
         [SerializeField]
         protected Animator _animator;
         [SerializeField]
-        protected Weapon _weaponClass;
+        protected Weapon _weaponClass; // в последующем будет браться из кода
+
 
         protected void Start()
         {
@@ -68,6 +70,7 @@ namespace TDS
                 _projectile = Instantiate(Resources.Load<GameObject>(_weaponClass.GetProjectile()),
                     weapon.transform.position, weapon.transform.rotation, parent);
                 _weaponClass.CallOnShoot();
+                _projectile.GetComponent<Projectile>().SideType = unitParams._sideType;
             }
 #if UNITY_EDITOR
             else
@@ -82,42 +85,33 @@ namespace TDS
             _animator.SetTrigger("Shoot");
         }
 
-        protected void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnTriggerEnter");
+            //Debug.Log("OnTriggerEnter");
+            _triggerType = other.GetComponent<TriggerComponent>().GetTriggerType();
 
-            switch (other.GetComponent<TriggerComponent>().GetTriggerType())
+            if(_triggerType == TriggerType.Projectile)
             {
-                case TriggerType.Non:
-                    break;
-                case TriggerType.Ammo:
-                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue());
+                if (other.GetComponent<Projectile>().SideType != unitParams._sideType)
+                {
+                    SetDamage(other.GetComponent<Projectile>().Damage);
                     Destroy(other.gameObject);
-                    break;
-                case TriggerType.Projectile:
-                    if(other.GetComponent<Projectile>().SideType != unitParams._sideType)
-                    _currentHealth -= other.GetComponent<Projectile>().Damage;
-                    Destroy(other.gameObject);
-                    break;
-                case TriggerType.AidKit:
-                    if (TryGetComponent<PlayerInput>(out var r))
-                        _currentHealth += other.GetComponent<TriggerComponent>().GetValue();
-                    Destroy(other.gameObject);
-                    break;
-                default:
-                    break;
+                }
             }
         }
 
         public void SetDamage(float damage)
         {
             _currentHealth -= damage;
+            _animator.SetTrigger("HitReact");
             if (_currentHealth <= 0) Death();
         }
 
         protected void Death()
         {
-            //todo
+            _animator.SetTrigger("Die");
+
+            if (TryGetComponent<NPC_Test>(out var r)) r.DestroyNPC(); // заменить NPC_Test на итоговое имя класса
         }
 
         public void RestoreHealth(float restore)

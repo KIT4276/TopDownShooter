@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 238320496254834216}
   - component: {fileID: 238320496254834219}
   - component: {fileID: 238320496254834231}
+  - component: {fileID: 6026101951561409847}
   m_Layer: 0
   m_Name: "\u0422earProjectile"
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 238320496254834218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.795}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,8 +112,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _lifeTime: 5
+  _lifeTime: 8
   _minDamage: 8
   _maxDamage: 15
   _projectileType: 1
   _transitDistance: 30
+--- !u!114 &6026101951561409847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238320496254834218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fa32a31dfe513469f6dd15d1b8d805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 0
+  triggerType: 2

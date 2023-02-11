@@ -9,12 +9,13 @@ namespace TDS
         private Collider _collider;
 
         [SerializeField]
-        private float value;
-
-        public float GetValue() => value;
-
+        private float _value;
         [SerializeField]
         private TriggerType triggerType;
+
+        public float GetValue() => _value;
+
+        
 
         public TriggerType GetTriggerType() => triggerType;
 

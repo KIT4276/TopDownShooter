@@ -23,6 +23,8 @@ namespace TDS
         private float _detectionDistance = 15f;
         [SerializeField]
         private float _attackDistance = 10f;
+        [Space, SerializeField]
+        private float _timeToDstruction = 6;
 
         [Space, SerializeField]
         private AISttateType _aISttateType;
@@ -35,6 +37,7 @@ namespace TDS
         private void FixedUpdate()
         {
             if (_aISttateType == AISttateType.Seek) SeekMMove();
+            //Debug.Log(_currentHealth);
         }
 
         private void SeekMMove()
@@ -58,18 +61,28 @@ namespace TDS
             if (_distance <= _navMeshAgent.stoppingDistance)
             {
                 _actionType = ActionType.Idle;
-                Debug.Log("4");
+                //Debug.Log("4");
             }
             if (_distance <= _detectionDistance)
             {
                 _navMeshAgent.destination = _player.position;
                 _actionType = ActionType.Move;
-                Debug.Log("5");
+                //Debug.Log("5");
             }
             if (_distance <= _attackDistance)
             {
                 Attack();
             }
+        }
+
+        public void DestroyNPC() => StartCoroutine(DestroyNPCCoroutine());
+
+        private IEnumerator DestroyNPCCoroutine()
+        {
+            _navMeshAgent.destination = transform.position; // --------------------------------------почему он не останавливается?
+            _animator.SetBool("Move", false);
+            yield return new WaitForSeconds(_timeToDstruction);
+            Destroy(gameObject);
         }
 
         private void Attack()
