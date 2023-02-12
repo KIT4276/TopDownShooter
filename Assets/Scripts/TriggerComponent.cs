@@ -14,7 +14,6 @@ namespace TDS
         private TriggerType triggerType;
 
         public float GetValue() => _value;
-
         
 
         public TriggerType GetTriggerType() => triggerType;

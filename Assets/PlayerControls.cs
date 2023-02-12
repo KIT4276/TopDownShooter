@@ -73,6 +73,15 @@ namespace TDS
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WeaponSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2f394e1-367f-4e33-b409-d491e31b1226"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,17 @@ namespace TDS
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fdd2f84-ffad-426c-9532-c5c3c2fea8e7"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +207,7 @@ namespace TDS
             m_PlayerInputMapp_Action = m_PlayerInputMapp.FindAction("Action", throwIfNotFound: true);
             m_PlayerInputMapp_Aiming = m_PlayerInputMapp.FindAction("Aiming", throwIfNotFound: true);
             m_PlayerInputMapp_Jump = m_PlayerInputMapp.FindAction("Jump", throwIfNotFound: true);
+            m_PlayerInputMapp_WeaponSwitch = m_PlayerInputMapp.FindAction("WeaponSwitch", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -251,6 +272,7 @@ namespace TDS
         private readonly InputAction m_PlayerInputMapp_Action;
         private readonly InputAction m_PlayerInputMapp_Aiming;
         private readonly InputAction m_PlayerInputMapp_Jump;
+        private readonly InputAction m_PlayerInputMapp_WeaponSwitch;
         public struct PlayerInputMappActions
         {
             private @PlayerControls m_Wrapper;
@@ -260,6 +282,7 @@ namespace TDS
             public InputAction @Action => m_Wrapper.m_PlayerInputMapp_Action;
             public InputAction @Aiming => m_Wrapper.m_PlayerInputMapp_Aiming;
             public InputAction @Jump => m_Wrapper.m_PlayerInputMapp_Jump;
+            public InputAction @WeaponSwitch => m_Wrapper.m_PlayerInputMapp_WeaponSwitch;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInputMapp; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -284,6 +307,9 @@ namespace TDS
                     @Jump.started -= m_Wrapper.m_PlayerInputMappActionsCallbackInterface.OnJump;
                     @Jump.performed -= m_Wrapper.m_PlayerInputMappActionsCallbackInterface.OnJump;
                     @Jump.canceled -= m_Wrapper.m_PlayerInputMappActionsCallbackInterface.OnJump;
+                    @WeaponSwitch.started -= m_Wrapper.m_PlayerInputMappActionsCallbackInterface.OnWeaponSwitch;
+                    @WeaponSwitch.performed -= m_Wrapper.m_PlayerInputMappActionsCallbackInterface.OnWeaponSwitch;
+                    @WeaponSwitch.canceled -= m_Wrapper.m_PlayerInputMappActionsCallbackInterface.OnWeaponSwitch;
                 }
                 m_Wrapper.m_PlayerInputMappActionsCallbackInterface = instance;
                 if (instance != null)
@@ -303,6 +329,9 @@ namespace TDS
                     @Jump.started += instance.OnJump;
                     @Jump.performed += instance.OnJump;
                     @Jump.canceled += instance.OnJump;
+                    @WeaponSwitch.started += instance.OnWeaponSwitch;
+                    @WeaponSwitch.performed += instance.OnWeaponSwitch;
+                    @WeaponSwitch.canceled += instance.OnWeaponSwitch;
                 }
             }
         }
@@ -314,6 +343,7 @@ namespace TDS
             void OnAction(InputAction.CallbackContext context);
             void OnAiming(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnWeaponSwitch(InputAction.CallbackContext context);
         }
     }
 }

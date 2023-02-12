@@ -73,17 +73,21 @@ namespace TDS
             {
                 case TriggerType.Ammo:
                     _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue());
+                    Destroy(other.gameObject);
                     break;
                 case TriggerType.AidKit:
                     _currentHealth += other.GetComponent<TriggerComponent>().GetValue();
+                    //if (_currentHealth > unitParams._maxHealth) _currentHealth = unitParams._maxHealth; ме гюашрэ бйкчвхрэ напюрмн оняке опнбепнй!
+                    Destroy(other.gameObject);
                     break;
                 case TriggerType.Docs:
                     _inventory.AddDocs(other.GetComponent<Transform>().name);
+                    Destroy(other.gameObject);
                     break;
                 default:
                     break;
             }
-            Destroy(other.gameObject);
+            
         }
 
         private void OnEnable()

@@ -8,7 +8,12 @@ namespace TDS
     {
         private void OnTriggerEnter(Collider other)
         {
-            Destroy(gameObject);
+            if(other.GetComponent<Projectile>() != null)
+            {
+                Destroy(gameObject);
+                //Debug.Log(transform.name + " Destroyed by Projectile");
+            }
+            
         }
     }
 }
