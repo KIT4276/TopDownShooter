@@ -8,15 +8,15 @@ namespace TDS
 {
     public class Weapon : MonoBehaviour
     {
-        private float _ammoInMag;
-        private float _leftAmmo = 15;
+        private float _ammoInMag“ear;
+        private float _ammoInMagFurther;
+        private float _leftAmmo“ear = 15;
+        private float _leftAmmoFurther = 15;
         private PlayerControls _controls;
         private string _pathToPrefab;
         
         public GameObject ActiveWeapon { get; private set; }
 
-        //[SerializeField]
-        //private ProjectileType _projectileType;
         [SerializeField]
         private float _magazineCapacity = 10;
 
@@ -40,13 +40,27 @@ namespace TDS
 
         private void Start()
         {
-            _ammoInMag = _magazineCapacity;
+            _ammoInMag“ear = _magazineCapacity;
         }
 
         private void Update()
         {
-            _ammoInMagText.text = _ammoInMag.ToString();
-            _leftAmmoText.text = _leftAmmo.ToString();
+            if(ActiveWeapon == _furtherWeaponObject)
+            {
+                _ammoInMagText.text = _ammoInMagFurther.ToString();
+                _leftAmmoText.text = _leftAmmoFurther.ToString();
+                if (_leftAmmoFurther <= _magazineCapacity) _leftAmmoText.color = Color.yellow;
+                else _leftAmmoText.color = Color.blue;
+            }
+
+            else
+            {
+                _ammoInMagText.text = _ammoInMag“ear.ToString();
+                _leftAmmoText.text = _leftAmmo“ear.ToString();
+                if (_leftAmmoFurther <= _magazineCapacity) _leftAmmoText.color = Color.red;
+                else _leftAmmoText.color = Color.green;
+            }
+
         }
 
         private void WeaponSwitch(InputAction.CallbackContext obj)
@@ -56,19 +70,29 @@ namespace TDS
                 ActiveWeapon = _furtherWeaponObject;
                 _tearWeaponObject.SetActive(false);
                 _furtherWeaponObject.SetActive(true);
+                _ammoInMagText.color = Color.blue;
             }
             else
             {
                 ActiveWeapon = _tearWeaponObject;
                 _tearWeaponObject.SetActive(true);
                 _furtherWeaponObject.SetActive(false);
+                _ammoInMagText.color = Color.green;
             }
         }
 
         private void AmmoStatusUpdate()
         {
-            _ammoInMag--;
-            if (_ammoInMag <= 0) Reload();
+            if(ActiveWeapon == _furtherWeaponObject)
+            {
+                _ammoInMagFurther--;
+                if (_ammoInMagFurther <= 0) Reload();
+            }
+            else
+            {
+                _ammoInMag“ear--;
+                if (_ammoInMag“ear <= 0) Reload();
+            }
         }
 
         public string GetProjectile()
@@ -81,27 +105,61 @@ namespace TDS
 
         public bool GetAbilityToShoot()
         {
-            if (_leftAmmo != 0 || _ammoInMag != 0) return true;
-            else return false;
+            if (ActiveWeapon == _furtherWeaponObject)
+            {
+                if (_leftAmmoFurther != 0 || _ammoInMagFurther != 0) return true;
+                else return false;
+            }
+            else
+            {
+                if (_leftAmmo“ear != 0 || _ammoInMag“ear != 0) return true;
+                else return false;
+            }
         }
 
-        public void AddAmmo(float value)
+        public void AddAmmo(float value, ProjectileType type) //type = 2 => Further; type = 1 => “ear
         {
-            _leftAmmo += value;
-            if (_ammoInMag == 0) Reload();
+            if (type == ProjectileType.Further)
+            {
+                _leftAmmoFurther += value;
+                if (_ammoInMagFurther == 0) Reload();
+            }
+            else
+            {
+                _leftAmmo“ear += value;
+                if (_ammoInMag“ear == 0) Reload();
+            }
+            Debug.Log("_leftAmmo“ear " + _leftAmmo“ear);
+            Debug.Log("_leftAmmoFurther " + _leftAmmoFurther);
         }
 
         private void Reload()
         {
-            if (_leftAmmo < _magazineCapacity)
+            if (ActiveWeapon == _furtherWeaponObject)
             {
-                _ammoInMag = _leftAmmo;
-                _leftAmmo = 0;
-            }
+                if (_leftAmmoFurther < _magazineCapacity)
+                {
+                    _ammoInMagFurther = _leftAmmoFurther;
+                    _leftAmmoFurther = 0;
+                }
+                else
+                {
+                    _leftAmmoFurther -= _magazineCapacity;
+                    _ammoInMagFurther = _magazineCapacity;
+                }
+            } //------------------------------------------------- ‡Í ËÁ·‡‚ËÚ¸Òˇ ÓÚ ‚ÒÂı ˝ÚËı ·ÂÁÛÏÌ˚ı ÔÓ‚ÚÓÂÌËÈ?
             else
             {
-                _leftAmmo -= _magazineCapacity;
-                _ammoInMag = _magazineCapacity;
+                if (_leftAmmo“ear < _magazineCapacity)
+                {
+                    _ammoInMag“ear = _leftAmmo“ear;
+                    _leftAmmo“ear = 0;
+                }
+                else
+                {
+                    _leftAmmo“ear -= _magazineCapacity;
+                    _ammoInMag“ear = _magazineCapacity;
+                }
             }
         }
 

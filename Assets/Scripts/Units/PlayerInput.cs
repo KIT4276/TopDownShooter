@@ -72,7 +72,7 @@ namespace TDS
             switch (_triggerType)
             {
                 case TriggerType.Ammo:
-                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue());
+                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue(), other.GetComponent<TriggerComponent>().GetProjectileType());
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.AidKit:

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AmmoMaterial
+  m_Name: "Ammo\u0422earMaterial"
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _EMISSION
@@ -64,7 +64,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.74
+    - _Glossiness: 1
     - _GlossyReflections: 1
     - _Metallic: 1
     - _Mode: 0
@@ -76,6 +76,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.6391598, g: 0.691505, b: 0.8867924, a: 1}
-    - _EmissionColor: {r: 0.3285469, g: 0.3236027, b: 0.8490566, a: 1}
+    - _Color: {r: 0.6392157, g: 0.8862745, b: 0.67523754, a: 1}
+    - _EmissionColor: {r: 0.3290933, g: 0.8509804, b: 0.32549027, a: 1}
   m_BuildTextureStacks: []
