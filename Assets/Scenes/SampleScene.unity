@@ -3982,10 +3982,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c1284df7c30484e81bdca7fcad2cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileType: 1
   _magazineCapacity: 10
   _ammoInMagText: {fileID: 2029819837}
   _leftAmmoText: {fileID: 1022493486}
+  _tearWeaponObject: {fileID: 4806215590394312814}
+  _furtherWeaponObject: {fileID: 3991033477462093825}
 --- !u!136 &919132147734122605
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6877,7 +6878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &4826843994169968105
 GameObject:
   m_ObjectHideFlags: 0

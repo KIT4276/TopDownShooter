@@ -15,8 +15,8 @@ namespace TDS
         
         public GameObject ActiveWeapon { get; private set; }
 
-        [SerializeField]
-        private ProjectileType _projectileType;
+        //[SerializeField]
+        //private ProjectileType _projectileType;
         [SerializeField]
         private float _magazineCapacity = 10;
 
@@ -40,11 +40,7 @@ namespace TDS
 
         private void Start()
         {
-            
-
             _ammoInMag = _magazineCapacity;
-            ActiveWeapon = _tearWeaponObject;
-
         }
 
         private void Update()
@@ -77,18 +73,9 @@ namespace TDS
 
         public string GetProjectile()
         {
-            switch (_projectileType)
-            {
-                case ProjectileType.Òear:
-                    _pathToPrefab = "Prefabs/ÒearProjectile";
-                    break;
-                case ProjectileType.Further:
-                    _pathToPrefab = "Prefabs/FurtherProjectile";
-                    break;
-                default:
-                    _pathToPrefab = "Prefabs/ÒearProjectile";
-                    break;
-            }
+            if (ActiveWeapon == _furtherWeaponObject) _pathToPrefab = "Prefabs/FurtherProjectile";
+            else  _pathToPrefab = "Prefabs/ÒearProjectile";
+
             return _pathToPrefab;
         }
 
