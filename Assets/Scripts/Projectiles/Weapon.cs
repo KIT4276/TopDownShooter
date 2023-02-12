@@ -15,7 +15,7 @@ namespace TDS
         private PlayerControls _controls;
         private string _pathToPrefab;
         
-        public GameObject ActiveWeapon { get; private set; }
+        public ProjectileType ActiveWeapon { get; private set; }
 
         [SerializeField]
         private float _magazineCapacity = 10;
@@ -30,6 +30,11 @@ namespace TDS
         [SerializeField]
         private GameObject _furtherWeaponObject;
 
+        [Space, SerializeField]
+        private GameObject _tearWeaponImage;
+        [SerializeField]
+        private GameObject _furtherWeaponImage;
+
         public void CallOnShoot() => AmmoStatusUpdate();
 
         private void Awake()
@@ -41,11 +46,14 @@ namespace TDS
         private void Start()
         {
             _ammoInMag“ear = _magazineCapacity;
+            _ammoInMagFurther = _magazineCapacity;
+            ActiveWeapon = ProjectileType.“ear; //_tearWeaponObject;
+            _ammoInMagText.color = Color.green;
         }
 
         private void Update()
         {
-            if(ActiveWeapon == _furtherWeaponObject)
+            if (ActiveWeapon == ProjectileType.Further)  //_furtherWeaponObject)
             {
                 _ammoInMagText.text = _ammoInMagFurther.ToString();
                 _leftAmmoText.text = _leftAmmoFurther.ToString();
@@ -65,25 +73,29 @@ namespace TDS
 
         private void WeaponSwitch(InputAction.CallbackContext obj)
         {
-            if (ActiveWeapon == _tearWeaponObject)
+            if (ActiveWeapon == ProjectileType.“ear)//_tearWeaponObject)
             {
-                ActiveWeapon = _furtherWeaponObject;
+                ActiveWeapon =  ProjectileType.Further;// _furtherWeaponObject;
                 _tearWeaponObject.SetActive(false);
                 _furtherWeaponObject.SetActive(true);
                 _ammoInMagText.color = Color.blue;
+                _furtherWeaponImage.SetActive(true);
+                _tearWeaponImage.SetActive(false);
             }
             else
             {
-                ActiveWeapon = _tearWeaponObject;
+                ActiveWeapon = ProjectileType.“ear;//_tearWeaponObject;
                 _tearWeaponObject.SetActive(true);
                 _furtherWeaponObject.SetActive(false);
                 _ammoInMagText.color = Color.green;
+                _furtherWeaponImage.SetActive(false);
+                _tearWeaponImage.SetActive(true);
             }
         }
 
         private void AmmoStatusUpdate()
         {
-            if(ActiveWeapon == _furtherWeaponObject)
+            if (ActiveWeapon == ProjectileType.Further)//_furtherWeaponObject)
             {
                 _ammoInMagFurther--;
                 if (_ammoInMagFurther <= 0) Reload();
@@ -97,7 +109,8 @@ namespace TDS
 
         public string GetProjectile()
         {
-            if (ActiveWeapon == _furtherWeaponObject) _pathToPrefab = "Prefabs/FurtherProjectile";
+            if (ActiveWeapon == ProjectileType.Further) //_furtherWeaponObject) 
+                _pathToPrefab = "Prefabs/FurtherProjectile";
             else  _pathToPrefab = "Prefabs/“earProjectile";
 
             return _pathToPrefab;
@@ -105,7 +118,7 @@ namespace TDS
 
         public bool GetAbilityToShoot()
         {
-            if (ActiveWeapon == _furtherWeaponObject)
+            if (ActiveWeapon == ProjectileType.Further)// _furtherWeaponObject)
             {
                 if (_leftAmmoFurther != 0 || _ammoInMagFurther != 0) return true;
                 else return false;
@@ -135,7 +148,7 @@ namespace TDS
 
         private void Reload()
         {
-            if (ActiveWeapon == _furtherWeaponObject)
+            if (ActiveWeapon == ProjectileType.Further)//_furtherWeaponObject)
             {
                 if (_leftAmmoFurther < _magazineCapacity)
                 {
