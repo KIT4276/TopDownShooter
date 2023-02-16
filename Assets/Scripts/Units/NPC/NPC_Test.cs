@@ -5,50 +5,32 @@ using UnityEngine.AI;
 
 namespace TDS
 {
-    [RequireComponent(typeof(NavMeshAgent))]
-    public class NPC_Test : Unit
+    
+    public class NPC_Test : BaseNPC
     {
         //  од врага - тупицы
-        private float _distance;
+        
 
-        [SerializeField]
-        private NavMeshAgent _navMeshAgent;
-        //[SerializeField]
-        //private Animator _animator;
-        [SerializeField]
-        private Transform _player; //------------------------------------------придЄтс€ использовать FindObject
         [SerializeField]
         private Transform _protectedObject;
-        [SerializeField]
-        private float _detectionDistance = 15f;
-        [SerializeField]
-        private float _attackDistance = 10f;
-        [Space, SerializeField]
-        private float _timeToDstruction = 6;
 
-        [Space, SerializeField]
-        private AISttateType _aISttateType;
-
-        private void Awake()
+        protected override void FixedUpdate()
         {
-            _navMeshAgent.enabled = true;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_aISttateType == AISttateType.Seek) SeekMMove();
+            // todo start base FixedUpdate 
+            if (_aISttateType == AISttateType.Seek) SeekMMove();  // в последующем if  убрать
             //Debug.Log(_currentHealth);
         }
 
         private void SeekMMove()
         {
             transform.LookAt(_navMeshAgent.destination);
-            _distance = Vector3.Distance(_player.position, transform.position);
+            //_distance = Vector3.Distance(_player.position, transform.position);
 
             // очень сомнительна€ конструкци€
-            if (_distance >= _detectionDistance)
+            if (_distance > _detectionDistance)
             {
                 _navMeshAgent.destination = _protectedObject.position;
+
                 if (_distance > _navMeshAgent.stoppingDistance)
                 {
                     _actionType = ActionType.Move;
@@ -58,20 +40,22 @@ namespace TDS
                     _actionType = ActionType.Idle; // ------------------------почему сюда не попадает?????????????
                 }
             }
-            if (_distance <= _navMeshAgent.stoppingDistance)
-            {
-                _actionType = ActionType.Idle;
-                //Debug.Log("4");
-            }
-            if (_distance <= _detectionDistance)
+            else 
             {
                 _navMeshAgent.destination = _player.position;
+
                 _actionType = ActionType.Move;
                 //Debug.Log("5");
-            }
-            if (_distance <= _attackDistance)
-            {
-                Attack();
+                
+                if (_distance <= _attackDistance)
+                {
+                    Attack();
+                }
+                if (_distance <= _navMeshAgent.stoppingDistance)
+                {
+                    _actionType = ActionType.Idle;
+                    //Debug.Log("4");
+                }
             }
         }
 
@@ -85,10 +69,6 @@ namespace TDS
             Destroy(gameObject);
         }
 
-        private void Attack()
-        {
-            //todo
-            _actionType = ActionType.Shooting;
-        }
+        
     }
 }

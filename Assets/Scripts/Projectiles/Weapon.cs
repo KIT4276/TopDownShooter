@@ -6,36 +6,25 @@ using UnityEngine.UI;
 
 namespace TDS
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : BaseWeapon
     {
-        private float _ammoInMag“ear;
-        private float _ammoInMagFurther;
-        private float _leftAmmo“ear = 15;
-        private float _leftAmmoFurther = 15;
-        private PlayerControls _controls;
-        private string _pathToPrefab;
         
-        public ProjectileType ActiveWeapon { get; private set; }
 
-        [SerializeField]
-        private float _magazineCapacity = 10;
+        
 
         [Space, SerializeField]
         private Text _ammoInMagText;
         [SerializeField]
         private Text _leftAmmoText;
 
-        [Space, SerializeField]
-        private GameObject _tearWeaponObject;
-        [SerializeField]
-        private GameObject _furtherWeaponObject;
+        
 
         [Space, SerializeField]
         private GameObject _tearWeaponImage;
         [SerializeField]
         private GameObject _furtherWeaponImage;
 
-        public void CallOnShoot() => AmmoStatusUpdate();
+        public override void CallOnShoot() => AmmoStatusUpdate();
 
         private void Awake()
         {
@@ -107,16 +96,9 @@ namespace TDS
             }
         }
 
-        public string GetProjectile()
-        {
-            if (ActiveWeapon == ProjectileType.Further) //_furtherWeaponObject) 
-                _pathToPrefab = "Prefabs/FurtherProjectile";
-            else  _pathToPrefab = "Prefabs/“earProjectile";
+        
 
-            return _pathToPrefab;
-        }
-
-        public bool GetAbilityToShoot()
+        public override bool GetAbilityToShoot()
         {
             if (ActiveWeapon == ProjectileType.Further)// _furtherWeaponObject)
             {
@@ -130,51 +112,9 @@ namespace TDS
             }
         }
 
-        public void AddAmmo(float value, ProjectileType type) //type = 2 => Further; type = 1 => “ear
-        {
-            if (type == ProjectileType.Further)
-            {
-                _leftAmmoFurther += value;
-                if (_ammoInMagFurther == 0) Reload();
-            }
-            else
-            {
-                _leftAmmo“ear += value;
-                if (_ammoInMag“ear == 0) Reload();
-            }
-            Debug.Log("_leftAmmo“ear " + _leftAmmo“ear);
-            Debug.Log("_leftAmmoFurther " + _leftAmmoFurther);
-        }
+        
 
-        private void Reload()
-        {
-            if (ActiveWeapon == ProjectileType.Further)//_furtherWeaponObject)
-            {
-                if (_leftAmmoFurther < _magazineCapacity)
-                {
-                    _ammoInMagFurther = _leftAmmoFurther;
-                    _leftAmmoFurther = 0;
-                }
-                else
-                {
-                    _leftAmmoFurther -= _magazineCapacity;
-                    _ammoInMagFurther = _magazineCapacity;
-                }
-            } //------------------------------------------------- ‡Í ËÁ·‡‚ËÚ¸Òˇ ÓÚ ‚ÒÂı ˝ÚËı ·ÂÁÛÏÌ˚ı ÔÓ‚ÚÓÂÌËÈ?
-            else
-            {
-                if (_leftAmmo“ear < _magazineCapacity)
-                {
-                    _ammoInMag“ear = _leftAmmo“ear;
-                    _leftAmmo“ear = 0;
-                }
-                else
-                {
-                    _leftAmmo“ear -= _magazineCapacity;
-                    _ammoInMag“ear = _magazineCapacity;
-                }
-            }
-        }
+        
 
         private void OnEnable()
            => _controls.PlayerInputMapp.Enable();

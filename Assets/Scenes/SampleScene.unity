@@ -2678,6 +2678,37 @@ Transform:
   m_Father: {fileID: 669721007}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1508116165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1508116166}
+  m_Layer: 0
+  m_Name: NCPWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1508116166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508116165}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.14, z: 0.539}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1996206957334540593}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1516866808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4683,7 +4714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147734122601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1665044, y: -0.934, z: -14.73}
+  m_LocalPosition: {x: -1.1665044, y: -0.934, z: 0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5094,10 +5125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _magazineCapacity: 10
-  _ammoInMagText: {fileID: 2029819837}
-  _leftAmmoText: {fileID: 1022493486}
   _tearWeaponObject: {fileID: 4806215590394312814}
   _furtherWeaponObject: {fileID: 3991033477462093825}
+  _NPCActiveWeapon: 0
+  _ammoInMagText: {fileID: 2029819837}
+  _leftAmmoText: {fileID: 1022493486}
   _tearWeaponImage: {fileID: 1621415683}
   _furtherWeaponImage: {fileID: 2134336235}
 --- !u!136 &919132147734122605
@@ -5463,10 +5495,11 @@ GameObject:
   - component: {fileID: 1996206957334540593}
   - component: {fileID: 1996206957334540596}
   - component: {fileID: 1996206957334540598}
-  - component: {fileID: 1996206957334540597}
-  - component: {fileID: 1996206957334540599}
   - component: {fileID: 1996206957334540601}
   - component: {fileID: 1996206957334540600}
+  - component: {fileID: 1996206957334540604}
+  - component: {fileID: 1996206957334540603}
+  - component: {fileID: 1996206957334540602}
   m_Layer: 0
   m_Name: Character_Hazmat 1
   m_TagString: Untagged
@@ -6248,6 +6281,7 @@ Transform:
   - {fileID: 8710542774597911930}
   - {fileID: 7066175726655711657}
   - {fileID: 6312648074649301319}
+  - {fileID: 1508116166}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6271,28 +6305,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &1996206957334540597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222765825302653835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c513575716667743a1852771d719666, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitParams: {fileID: 1996206957334540599}
-  _animator: {fileID: 1996206957334540596}
-  _weaponClass: {fileID: 0}
-  _navMeshAgent: {fileID: 1996206957334540598}
-  _player: {fileID: 543450651940997843}
-  _protectedObject: {fileID: 404419377}
-  _detectionDistance: 20
-  _attackDistance: 10
-  _timeToDstruction: 4
-  _aISttateType: 0
 --- !u!195 &1996206957334540598
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6307,7 +6319,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 8
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -6315,23 +6327,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!114 &1996206957334540599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222765825302653835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b45064e1a2ca0b4ca4544f91adc442d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 1
-  _sideType: 2
-  _maxHealth: 16
-  _stopDistance: 1
-  _rotateSpeed: 3
 --- !u!136 &1996206957334540600
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6362,6 +6357,64 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1996206957334540602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222765825302653835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3933ebd9277f5134aa827d1c53b1b822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitParams: {fileID: 1996206957334540603}
+  _animator: {fileID: 1996206957334540596}
+  _weaponClass: {fileID: 1996206957334540604}
+  _weaponTransform: {fileID: 1508116166}
+  _projectilesPool: {fileID: 1740163494}
+  _navMeshAgent: {fileID: 1996206957334540598}
+  _player: {fileID: 543450651940997843}
+  _detectionDistance: 15
+  _attackDistance: 10
+  _timeToDstruction: 6
+  _shotDlay: 2
+  _aISttateType: 2
+  _patrolradius: 20
+--- !u!114 &1996206957334540603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222765825302653835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b45064e1a2ca0b4ca4544f91adc442d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 1
+  _sideType: 2
+  _maxHealth: 20
+  _stopDistance: 1
+  _rotateSpeed: 3
+--- !u!114 &1996206957334540604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222765825302653835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6234e82ac60143ae809f8cdd092f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _magazineCapacity: 10
+  _tearWeaponObject: {fileID: 6812346751074616204}
+  _furtherWeaponObject: {fileID: 7259997629649168761}
+  _NPCActiveWeapon: 1
 --- !u!4 &2095284342958533897
 Transform:
   m_ObjectHideFlags: 0

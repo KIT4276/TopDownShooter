@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace TDS
 {
-    [RequireComponent (typeof(UnitParams))]
+    [RequireComponent (typeof(UnitParams), typeof(Weapon))]
     public class PlayerInput : Unit
     {
         private PlayerControls _controls;
@@ -18,10 +18,7 @@ namespace TDS
         private Vector3 _targetForLookAt;
         protected Vector3 _movement;
 
-        [SerializeField]
-        private Transform _weaponTransform; // Пока так
-        [SerializeField]
-        private Transform _projectilesPool; // Пока нужно для контроля, потом убрать
+        
         [SerializeField]
         private Text _healthText;
         [SerializeField]

@@ -20,7 +20,11 @@ namespace TDS
         [SerializeField]
         protected Animator _animator;
         [SerializeField]
-        protected Weapon _weaponClass; // в последующем будет браться из кода
+        protected BaseWeapon _weaponClass; 
+        [SerializeField]
+        protected Transform _weaponTransform;
+        [SerializeField]
+        protected Transform _projectilesPool; // Пока нужно для контроля, потом убрать
 
 
         protected void Start()
