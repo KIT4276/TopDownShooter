@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4eb724928b79e4b814a4ddd5a4071b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 25
   _lifeTime: 8
   _minDamage: 8
   _maxDamage: 15
@@ -129,5 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fa32a31dfe513469f6dd15d1b8d805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectileType: 0
   _value: 0
   triggerType: 2

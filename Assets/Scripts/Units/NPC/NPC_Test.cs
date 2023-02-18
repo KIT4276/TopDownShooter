@@ -23,7 +23,7 @@ namespace TDS
 
         private void SeekMMove()
         {
-            transform.LookAt(_navMeshAgent.destination);
+            
             //_distance = Vector3.Distance(_player.position, transform.position);
 
             // очень сомнительная конструкция
@@ -59,15 +59,15 @@ namespace TDS
             }
         }
 
-        public void DestroyNPC() => StartCoroutine(DestroyNPCCoroutine());
+        //public void DestroyNPC() => StartCoroutine(DestroyNPCCoroutine());
 
-        private IEnumerator DestroyNPCCoroutine()
-        {
-            _navMeshAgent.destination = transform.position; // --------------------------------------почему он не останавливается?
-            _animator.SetBool("Move", false);
-            yield return new WaitForSeconds(_timeToDstruction);
-            Destroy(gameObject);
-        }
+        //private IEnumerator DestroyNPCCoroutine()
+        //{
+        //    _navMeshAgent.destination = transform.position; // --------------------------------------почему он не останавливается?
+        //    _animator.SetBool("Move", false);
+        //    yield return new WaitForSeconds(_timeToDstruction);
+        //    Destroy(gameObject);
+        //}
 
         
     }

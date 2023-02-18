@@ -11,7 +11,7 @@ namespace TDS
 
         protected override void Awake()
         {
-
+            _actionType = ActionType.Move;
         }
 
         protected override void FixedUpdate()

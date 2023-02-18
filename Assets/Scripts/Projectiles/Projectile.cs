@@ -8,6 +8,8 @@ namespace TDS
     {
         private float _distance;
         private Vector3 _startPos;
+        //private Vector3 _target;
+        private PlayerInput _playerInput;
 
         [SerializeField]
         private float _speed;
@@ -30,14 +32,26 @@ namespace TDS
         {
             StartCoroutine(DestroyProjectile());
             _startPos = transform.position;
+            _playerInput = FindObjectOfType<PlayerInput>();
         }
 
         private void Update()
         {
+            MoveProjectile();
+        }
+
+
+        private void MoveProjectile()
+        {
             transform.position += _speed * Time.deltaTime * transform.forward;
             _distance = Vector3.Distance(_startPos, transform.position);
 
-            if(_projectileType == ProjectileType.Òear)
+            UpdateProjectileProperties();
+        }
+
+        private void UpdateProjectileProperties()
+        {
+            if (_projectileType == ProjectileType.Òear)
             {
                 if (_distance < _transitDistance) Damage = _maxDamage;
                 else Damage = _minDamage;

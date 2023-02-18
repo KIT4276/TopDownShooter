@@ -16,7 +16,7 @@ namespace TDS
         private Vector3 _screenMousePosition;
         private Vector3 _worldMmousePosition;
         private Vector3 _targetForLookAt;
-        protected Vector3 _movement;
+        //private Vector3 _movement;
 
         
         [SerializeField]
@@ -35,7 +35,14 @@ namespace TDS
         private void FixedUpdate()
         {
             _direction = _controls.PlayerInputMapp.Move.ReadValue<Vector2>();
-            _movement = new Vector3(_direction.x, 0f, _direction.y);
+            _movement = new Vector3(_direction.x, 0f, _direction.y).normalized;
+
+            //var norm = _targetForLookAt.normalized;
+
+            //_moveDirection = new Vector3(_movement.x - norm.x, 0f, _movement.y - norm.z);// тут исправить
+            //_moveDirection = _movement - norm;
+
+
             OnMove();
             OnRotate();
             _healthText.text = _currentHealth.ToString();
@@ -58,7 +65,7 @@ namespace TDS
             _screenMousePosition = _controls.PlayerInputMapp.Aiming.ReadValue<Vector2>();
             _worldMmousePosition = _camera.ScreenToWorldPoint(new Vector3(_screenMousePosition.x, _screenMousePosition.y, _camera.transform.position.y));
             _targetForLookAt = new Vector3(_worldMmousePosition.x, transform.position.y, _worldMmousePosition.z);
-            
+
             transform.LookAt(_targetForLookAt);
         }
 
@@ -81,11 +88,17 @@ namespace TDS
                     _inventory.AddDocs(other.GetComponent<Transform>().name);
                     Destroy(other.gameObject);
                     break;
+                case TriggerType.Artifact:
+                    GameManager.self.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
+                    GameManager.self.ArtifactCapture();
+                    Destroy(other.gameObject);
+                    break;
                 default:
                     break;
             }
-            
         }
+
+        //public Vector3 GetTargetForLookAt() => _targetForLookAt;
 
         private void OnEnable()
            => _controls.PlayerInputMapp.Enable();

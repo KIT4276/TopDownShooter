@@ -25,6 +25,8 @@ namespace TDS
         protected float _timeToDstruction = 6;
         [SerializeField]
         protected float _shotDlay;
+        [SerializeField]
+        private int _XPForKilling = 1;
 
         [Space, SerializeField]
         protected AISttateType _aISttateType;
@@ -38,10 +40,9 @@ namespace TDS
         {
             _distance = Vector3.Distance(_player.position, transform.position);
 
-
             if (_distance <= _detectionDistance)
             {
-                if(_canShot) StartCoroutine(HoldShot());
+                if (_canShot) StartCoroutine(HoldShot());
                 transform.LookAt(_player);
             }
         }
@@ -61,6 +62,18 @@ namespace TDS
             
             Attack();
             _canShot = true;
+        }
+
+        public void DestroyNPC() => StartCoroutine(DestroyNPCCoroutine());
+
+        private IEnumerator DestroyNPCCoroutine()
+        {
+            _navMeshAgent.destination = transform.position; // --------------------------------------почему он не останавливается?
+            _animator.SetBool("Move", false);
+            
+            yield return new WaitForSeconds(_timeToDstruction);
+            GameManager.self.AddExperience(_XPForKilling);
+            Destroy(gameObject);
         }
     }
 }

@@ -61,8 +61,8 @@ namespace TDS
                 _leftAmmo“ear += value;
                 if (_ammoInMag“ear == 0) Reload();
             }
-            Debug.Log("_leftAmmo“ear " + _leftAmmo“ear);
-            Debug.Log("_leftAmmoFurther " + _leftAmmoFurther);
+            //Debug.Log("_leftAmmo“ear " + _leftAmmo“ear);
+            //Debug.Log("_leftAmmoFurther " + _leftAmmoFurther);
         }
 
         protected void Reload()

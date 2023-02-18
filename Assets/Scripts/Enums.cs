@@ -5,7 +5,7 @@ namespace TDS
     public enum SideType : byte
     {
         None = 0,
-        Friendly = 1,
+        Player = 1,
         Enemy = 2,
     }
 
@@ -48,5 +48,15 @@ namespace TDS
         Projectile = 2,
         AidKit = 3,
         Docs = 4,
+        Artifact = 5,
+    }
+
+    public enum Chapter : byte
+    {
+        Non = 0,
+        RoutineTask = 1,
+        FirstMeeting = 2,
+        TheIceHasBroken = 3,
+        LookUp = 4,
     }
 }

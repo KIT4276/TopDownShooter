@@ -7,14 +7,19 @@ namespace TDS
     [RequireComponent(typeof(UnitParams))] 
     public class Unit : MonoBehaviour
     {
+        private float _xNorm;
+        private float _zNorm;
+        
         protected float _currentHealth;
         
         protected GameObject _projectile;
         protected ActionType _actionType;
         protected bool _isShotPossible = true;
         protected TriggerType _triggerType;
+        protected Vector3 _moveDirection;
+        protected Vector3 _movement;
 
-        
+
         [SerializeField]
         protected UnitParams unitParams;
         [SerializeField]
@@ -46,6 +51,8 @@ namespace TDS
                     break;
                 case ActionType.Move:
                     _animator.SetBool("Move", true);
+                    //_animator.SetFloat("ForvardMove", _moveDirection.z); // not working
+                    //_animator.SetFloat("SideMove", _moveDirection.x);
                     break;
                 case ActionType.Shooting:
                     _animator.SetTrigger("Shoot");
@@ -115,7 +122,7 @@ namespace TDS
         {
             _animator.SetTrigger("Die");
 
-            if (TryGetComponent<NPC_Test>(out var r)) r.DestroyNPC(); // заменить NPC_Test на итоговое имя класса
+            if (TryGetComponent<BaseNPC>(out var r)) r.DestroyNPC(); // заменить NPC_Test на итоговое имя класса
         }
 
         public void RestoreHealth(float restore)
