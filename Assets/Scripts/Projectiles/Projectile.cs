@@ -42,8 +42,8 @@ namespace TDS
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerInput>()) return;
-            Destroy(gameObject);
+            if (other.GetComponent<Unit>()!= null || other.GetComponent<Projectile>() != null) return;
+            else Destroy(gameObject);
         }
 
 

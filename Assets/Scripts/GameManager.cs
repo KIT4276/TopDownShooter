@@ -45,7 +45,7 @@ namespace TDS
         private void Update()
         {
             Debug.Log("In Chapter " + _experienceInChapter);
-            Debug.Log("Total " + _totalExperience);
+            //Debug.Log("Total " + _totalExperience);
 
             _artifactsTakenText.text = _artifactsTaken.ToString();
             _totalArtifactsText.text = _totalArtifacts.ToString();

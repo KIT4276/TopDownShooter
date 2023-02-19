@@ -76,12 +76,13 @@ namespace TDS
             switch (_triggerType)
             {
                 case TriggerType.Ammo:
-                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue(), other.GetComponent<TriggerComponent>().GetProjectileType());
+                    _weaponClass.AddAmmo(other.GetComponent<TriggerComponent>().GetValue(), 
+                        other.GetComponent<TriggerComponent>().GetProjectileType());
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.AidKit:
                     _currentHealth += other.GetComponent<TriggerComponent>().GetValue();
-                    //if (_currentHealth > unitParams._maxHealth) _currentHealth = unitParams._maxHealth; ÍÅ ÇÀÁÛÒÜ ÂÊËÞ×ÈÒÜ ÎÁÐÀÒÍÎ ÏÎÑËÅ ÏÐÎÂÅÐÎÊ!
+                    if (_currentHealth > unitParams._maxHealth) _currentHealth = unitParams._maxHealth;
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Docs:
