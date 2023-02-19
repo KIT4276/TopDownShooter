@@ -32,11 +32,17 @@ namespace TDS
         [Space, SerializeField]
         private float _delayBeforeMission = 5;
 
-        public static GameManager self;
+        [SerializeField]
+        private GameObject _player;
+
+        public static GameManager instance;
 
         private void Start()
         {
-            self = this;
+            instance = this;
+
+            //Fader._instance.FadeIn(); // todo
+
             _currentChapter = Chapter.RoutineTask;
             _chapterName.text = _currentChapter.ToString();
             _totalArtifacts = _artifactsPrChapter1;
@@ -55,7 +61,8 @@ namespace TDS
 
         private void NextChapter()
         {
-            _chapterName.gameObject.SetActive(false);
+            //_chapterName.gameObject.SetActive(false);
+
 
             //-------------------------------------------------todo Events at the base between chapters, maybe a video
 
@@ -99,7 +106,9 @@ namespace TDS
         private void LevelVictory()
         {
             if (_artifactsTaken == _totalArtifacts) NextChapter();
+
         }
+
 
         public void ArtifactCapture()
             => _artifactsTaken++;

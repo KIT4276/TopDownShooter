@@ -90,8 +90,8 @@ namespace TDS
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Artifact:
-                    GameManager.self.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
-                    GameManager.self.ArtifactCapture();
+                    GameManager.instance.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
+                    GameManager.instance.ArtifactCapture();
                     Destroy(other.gameObject);
                     break;
                 default:
