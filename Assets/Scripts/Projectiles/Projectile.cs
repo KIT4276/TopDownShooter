@@ -40,6 +40,12 @@ namespace TDS
             MoveProjectile();
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.GetComponent<PlayerInput>()) return;
+            Destroy(gameObject);
+        }
+
 
         private void MoveProjectile()
         {
