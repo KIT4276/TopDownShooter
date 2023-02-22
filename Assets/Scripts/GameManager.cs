@@ -11,7 +11,7 @@ namespace TDS
         private static int _totalExperience; 
         private static int _artifactsTaken;
         private static int _totalArtifacts;
-        private static Chapter _currentChapter;
+        //private static Chapter _currentChapter;
 
         [SerializeField]
         private int _artifactsPrChapter1 = 1;
@@ -34,6 +34,8 @@ namespace TDS
 
         [SerializeField]
         private GameObject _player;
+        [SerializeField]
+        private ChapterManager _chapterManager;
 
         public static GameManager instance;
 
@@ -41,10 +43,10 @@ namespace TDS
         {
             instance = this;
 
-            //Fader._instance.FadeIn(); // todo
+            //Fader.instance.FadeIn(); // todo
 
-            _currentChapter = Chapter.RoutineTask;
-            _chapterName.text = _currentChapter.ToString();
+            //_currentChapter = Chapter.RoutineTask;
+            _chapterName.text = _chapterManager.CurrentChapter.ToString();
             _totalArtifacts = _artifactsPrChapter1;
         }
 
@@ -59,9 +61,16 @@ namespace TDS
             LevelVictory();
         }
 
+        //public void LoadChapter(Chapter currentChapter)
+        //{
+            
+        //    _currentChapter = currentChapter;
+        //}
+
         private void NextChapter()
         {
             //_chapterName.gameObject.SetActive(false);
+            
 
 
             //-------------------------------------------------todo Events at the base between chapters, maybe a video
@@ -69,29 +78,35 @@ namespace TDS
             _totalExperience += _experienceInChapter;
             _experienceInChapter = 0;
             _artifactsTaken = 0;
-            _currentChapter++;
+            //_currentChapter++;
 
-            switch (_currentChapter)
+            Chapter nextChapter;
+            switch (_chapterManager.CurrentChapter)
             {
-                case Chapter.Non:
-                    break;
                 case Chapter.RoutineTask:
                     _totalArtifacts = _artifactsPrChapter1;
+                    nextChapter = Chapter.FirstMeeting;
                     break;
                 case Chapter.FirstMeeting:
                     _totalArtifacts = _artifactsPrChapter2;
+                    nextChapter = Chapter.TheIceHasBroken;
                     break;
                 case Chapter.TheIceHasBroken:
                     _totalArtifacts = _artifactsPrChapter3;
+                    nextChapter = Chapter.LookUp;
                     break;
                 case Chapter.LookUp:
                     _totalArtifacts = _artifactsPrChapter4;
+                    nextChapter = Chapter.Non;
                     break;
                 default:
+                    nextChapter = Chapter.Non;
                     break;
             }
 
-            _chapterName.text = _currentChapter.ToString();
+            SceneLoader.instance.LoadScene(nextChapter);
+
+            _chapterName.text = _chapterManager.CurrentChapter.ToString();
             _chapterName.gameObject.SetActive(true);
             StartCoroutine(DelayBeforeMission());
 

@@ -10,19 +10,19 @@ namespace TDS
         [SerializeField]
         private Animator _animator;
         
-        public static Fader _instance;
+        public static Fader instance;
 
         public static Fader Instance 
         { 
             get 
             { 
-                if(_instance == null)
+                if(instance == null)
                 {
                     var prefab = Resources.Load<Fader>(FaderPath);
-                    _instance = Instantiate(prefab);
-                    DontDestroyOnLoad(_instance.gameObject);
+                    instance = Instantiate(prefab);
+                    DontDestroyOnLoad(instance.gameObject);
                 }
-                return _instance;
+                return instance;
             } 
         }
 
