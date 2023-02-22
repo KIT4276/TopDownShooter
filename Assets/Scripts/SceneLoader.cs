@@ -6,9 +6,21 @@ namespace TDS
 {
     public class SceneLoader : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject _lvl0;
+        [SerializeField]
+        private GameObject _lvl1;
+        [SerializeField]
+        private GameObject _lvl2;
+        [SerializeField]
+        private GameObject _lvl3;
+        [SerializeField]
+        private GameObject _lvl4;
+        [SerializeField, Tooltip("Всё от персонажа, кроме CameraPoint")]
+        private GameObject _player;
 
         private bool _isLoading;
-        private ChapterManager _chapterManager;
+        private Chapter _nextChapter;
 
         public static SceneLoader instance;
 
@@ -16,8 +28,7 @@ namespace TDS
 
         private void Awake()
         {
-            _chapterManager = GetComponent<ChapterManager>();
-
+            _lvl0.SetActive(true);
 
             if (instance != null) // на случай загрузки карт в разных сценах
             {
@@ -30,23 +41,25 @@ namespace TDS
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0)) LoadScene(Chapter.Non); // врееменные
+            //if (Input.GetKeyDown(KeyCode.Alpha0)) LoadScene(Chapter.Non); // врееменные
 
-            if (Input.GetKeyDown(KeyCode.Alpha1)) LoadScene(Chapter.RoutineTask);
+            //if (Input.GetKeyDown(KeyCode.Alpha1)) LoadScene(Chapter.RoutineTask);
 
-            if (Input.GetKeyDown(KeyCode.Alpha2)) LoadScene(Chapter.FirstMeeting);
+            //if (Input.GetKeyDown(KeyCode.Alpha2)) LoadScene(Chapter.FirstMeeting);
 
         }
 
         public void LoadScene(Chapter chapter)
         {
             if (_isLoading) return;
+            if (chapter == Chapter.RoutineTask) _player.SetActive(true);
 
-            if (chapter == _chapterManager.CurrentChapter)
-            {
-                Debug.Log(" Попытка загрузить уже загруженную сцену");
-                return;
-            }
+
+            //if (ChapterManager.instance.NextChapter == ChapterManager.instance.CurrentChapter)
+            //{
+            //    Debug.Log(" Попытка загрузить уже загруженную сцену");
+            //    return;
+            //}
 
             StartCoroutine(LoadSceneRoutine());
         }
@@ -55,15 +68,19 @@ namespace TDS
         {
             _isLoading = true;
 
+            Chapter nextChapter = ChapterManager.instance.ReturnNextChapter();
+
             var waitFading = true;
             Fader.instance.FadeIn(() => waitFading = false);
 
             while (waitFading) 
                 yield return null;
 
-            var async = _chapterManager.LoadSceneAsync();
+            ChapterManager.instance.UnLoadSceneAsync(ReturnLVL(ChapterManager.instance.CurrentChapter));
+            ChapterManager.instance.LoadSceneAsync(ReturnLVL(nextChapter));
+            
 
-            while(!_chapterManager.IsAsyncLoaded) 
+            while (!ChapterManager.instance.IsAsyncLoaded) 
                 yield return null;
 
             waitFading = true;
@@ -77,5 +94,32 @@ namespace TDS
         }
 
         
+
+        public GameObject ReturnLVL(Chapter NextChapter)
+        {
+            GameObject nextLVL;
+            switch (NextChapter)
+            {
+                case Chapter.Non:
+                    nextLVL = _lvl0;
+                    break;
+                case Chapter.RoutineTask:
+                    nextLVL = _lvl1;
+                    break;
+                case Chapter.FirstMeeting:
+                    nextLVL = _lvl2;
+                    break;
+                case Chapter.TheIceHasBroken:
+                    nextLVL = _lvl3;
+                    break;
+                case Chapter.LookUp:
+                    nextLVL = _lvl4;
+                    break;
+                default:
+                    nextLVL = _lvl0;
+                    break;
+            }
+            return nextLVL;
+        }
     }
 }

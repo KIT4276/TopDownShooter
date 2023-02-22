@@ -5,26 +5,33 @@ namespace TDS
 {
     public class Fader : MonoBehaviour
     {
-        private const string FaderPath = "Fader";
+        //private const string FaderPath = "Fader";
 
         [SerializeField]
         private Animator _animator;
+        [SerializeField]
+        private ChapterManager _chapterManager;
         
         public static Fader instance;
 
-        public static Fader Instance 
-        { 
-            get 
-            { 
-                if(instance == null)
-                {
-                    var prefab = Resources.Load<Fader>(FaderPath);
-                    instance = Instantiate(prefab);
-                    DontDestroyOnLoad(instance.gameObject);
-                }
-                return instance;
-            } 
+        private void Start()
+        {
+            instance = this;
         }
+        //public static Fader Instance 
+        //{ 
+        //    get 
+        //    {
+        //        if (instance == null) instance = this;
+        //        //if(instance == null)
+        //        //{
+        //        //    var prefab = Resources.Load<Fader>(FaderPath);
+        //        //    instance = Instantiate(prefab);
+        //        //    DontDestroyOnLoad(instance.gameObject);
+        //        //}
+        //        //return instance;
+        //    } 
+        //}
 
         public bool IsFading { get; private set; }
 
@@ -58,7 +65,8 @@ namespace TDS
 
         private void HandleFadeOutAnimationOver()
         {
-            _fadedOutCallBack.Invoke();
+            if (_chapterManager.CurrentChapter != Chapter.Non) _fadedOutCallBack.Invoke();  
+            
             _fadedOutCallBack = null;
             IsFading = false;
         }
