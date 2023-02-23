@@ -24,6 +24,8 @@ namespace TDS
         private GameObject _player;
         [SerializeField]
         private Transform _playersTransform;
+        [SerializeField]
+        private Transform _cameraPoint;
 
         [Space, SerializeField]
         private Fader _fader;
@@ -76,7 +78,12 @@ namespace TDS
                 yield return null;
 
             UnLoadScene(ReturnLVL(CurrentChapter));
-            if (_isOnBase) _playersTransform.position = _positionOnBase;
+            if (_isOnBase)
+            {
+                _playersTransform.position = _positionOnBase;
+                _cameraPoint.position = _positionOnBase;
+            }
+
             LoadScene(ReturnLVL(NextChapter));
 
             while (_fader.IsFading)
@@ -142,6 +149,7 @@ namespace TDS
                 yield return null;
 
             _playersTransform.position = ReturnPositionOnLVL();
+            _cameraPoint.position = ReturnPositionOnLVL();
 
 
             _fader.FadeOut();
@@ -156,9 +164,6 @@ namespace TDS
             Vector3 _pos;
             switch (CurrentChapter)
             {
-                //case Chapter.Non:
-                //    _pos = Vector3.zero; // пока так
-                //    break;
                 case Chapter.RoutineTask:
                     _pos = new Vector3(-8.4f, -1f, -36f);
                     break;

@@ -15190,6 +15190,7 @@ MonoBehaviour:
   _lvl4: {fileID: 1068587223}
   _player: {fileID: 1882008432}
   _playersTransform: {fileID: 543450652639540318}
+  _cameraPoint: {fileID: 1109664393}
   _fader: {fileID: 421728623}
   _faderImage: {fileID: 1978732518}
 --- !u!1 &978720150
