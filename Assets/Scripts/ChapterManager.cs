@@ -43,8 +43,8 @@ namespace TDS
             if(CurrentChapter == NextChapter)
             NextChapter = ReturnNextChapter();
 
-            Debug.Log("CurrentChapter " + CurrentChapter);
-            Debug.Log("NextChapter " + NextChapter);
+            //Debug.Log("CurrentChapter " + CurrentChapter);
+            //Debug.Log("NextChapter " + NextChapter);
 
         }
 
@@ -53,23 +53,24 @@ namespace TDS
             if (NextChapter == Chapter.RoutineTask)
             {
                 _player.SetActive(true);
-                Debug.Log("NextChapter == Chapter.RoutineTask");
+                //Debug.Log("NextChapter == Chapter.RoutineTask");
             }
             StartCoroutine(LoadSceneRoutine());
         }
 
         private IEnumerator LoadSceneRoutine()
         {
-           // _fader.gameObject.SetActive(true);
+            _fader.gameObject.SetActive(true);
             _fader.FadeIn();
 
+            while (_fader.IsFading)
+                yield return null;
 
-            UnLoadSceneAsync(ReturnLVL(CurrentChapter));
-            LoadSceneAsync(ReturnLVL(NextChapter));
+            UnLoadScene(ReturnLVL(CurrentChapter));
+            LoadScene(ReturnLVL(NextChapter));
 
-
-            //while (!IsAsyncLoaded)
-            //    yield return null;
+            while (_fader.IsFading)
+                yield return null;
 
 
             _fader.FadeOut();
@@ -78,9 +79,9 @@ namespace TDS
             yield return null;
         }
 
-        public IEnumerator LoadSceneAsync(GameObject LVL)
+        public void LoadScene(GameObject LVL)
         {
-            Debug.Log("LoadSceneAsync " + LVL.name);
+            Debug.Log("LoadScene " + LVL.name);
             //IsAsyncLoaded = false;
 
             LVL.SetActive(true);
@@ -88,40 +89,40 @@ namespace TDS
             //IsAsyncLoaded = true;
             NextChapter = ReturnNextChapter();
             //_fader.gameObject.SetActive(false);
-            yield return null;
+            //yield return null;
         }
-        public IEnumerator UnLoadSceneAsync(GameObject LVL)
+        public void UnLoadScene(GameObject LVL)
         {
-            Debug.Log("UnLoadSceneAsync " + LVL.name);
+            Debug.Log("UnLoadScene " + LVL.name);
             LVL.SetActive(false);
-            yield return null;
+            //yield return null;
         }
 
-        public GameObject ReturnLVL(Chapter NextChapter)
+        public GameObject ReturnLVL(Chapter chapter)
         {
-            GameObject nextLVL;
-            switch (NextChapter)
+            GameObject LVL;
+            switch (chapter)
             {
                 case Chapter.Non:
-                    nextLVL = _lvl0;
+                    LVL = _lvl0;
                     break;
                 case Chapter.RoutineTask:
-                    nextLVL = _lvl1;
+                    LVL = _lvl1;
                     break;
                 case Chapter.FirstMeeting:
-                    nextLVL = _lvl2;
+                    LVL = _lvl2;
                     break;
                 case Chapter.TheIceHasBroken:
-                    nextLVL = _lvl3;
+                    LVL = _lvl3;
                     break;
                 case Chapter.LookUp:
-                    nextLVL = _lvl4;
+                    LVL = _lvl4;
                     break;
                 default:
-                    nextLVL = _lvl0;
+                    LVL = _lvl0;
                     break;
             }
-            return nextLVL;
+            return LVL;
         }
 
         public Chapter ReturnNextChapter() //--------------------------------------------ну почему не работает?!

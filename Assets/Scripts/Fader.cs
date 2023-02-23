@@ -22,7 +22,7 @@ namespace TDS
         public void FadeIn()
         {
             if (IsFading) return;
-
+            Debug.Log("FadeIn");
             IsFading = true;
             _animator.SetBool("Faded", true);
         }
@@ -30,7 +30,7 @@ namespace TDS
         public void FadeOut()
         {
             if (IsFading) return;
-
+            Debug.Log("FadeOut");
             IsFading = true;
             _animator.SetBool("Faded", false);
         }
@@ -54,7 +54,7 @@ namespace TDS
         public void FaderInactive()
         {
             gameObject.SetActive(false);
-            Debug.Log("FaderInactive");
+            //Debug.Log("FaderInactive");
         }
-        }
+    }
 }
