@@ -107,7 +107,7 @@ namespace TDS
             if (_artifactsTaken == _totalArtifacts)
             {
                 NextChapter();
-                Debug.Log("LevelVictory");
+                //Debug.Log("LevelVictory");
             }
         }
 

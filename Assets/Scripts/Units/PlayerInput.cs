@@ -25,6 +25,8 @@ namespace TDS
         private Inventory _inventory;
         [Space, SerializeField]
         private ChapterManager _chapterManager;
+        //[SerializeField]
+        //private Fader _fader;
 
         private void Awake()
         {
@@ -52,6 +54,8 @@ namespace TDS
 
         private void OnMove()
         {
+            if (Fader.IsFading) return;
+
             transform.position += _movement * unitParams.MoveSpeed * Time.deltaTime;
             if (_movement != new Vector3(0f, 0f, 0f)) _actionType = ActionType.Move;
             else _actionType = ActionType.Idle;
@@ -64,6 +68,8 @@ namespace TDS
 
         private void OnRotate()
         {
+            if (Fader.IsFading) return;
+
             _screenMousePosition = _controls.PlayerInputMapp.Aiming.ReadValue<Vector2>();
             _worldMmousePosition = _camera.ScreenToWorldPoint(new Vector3(_screenMousePosition.x, _screenMousePosition.y, _camera.transform.position.y));
             _targetForLookAt = new Vector3(_worldMmousePosition.x, transform.position.y, _worldMmousePosition.z);

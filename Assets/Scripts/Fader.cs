@@ -12,11 +12,16 @@ namespace TDS
         [SerializeField]
         private ChapterManager _chapterManager;
 
-        public bool IsFading { get; private set; }
+        public static Fader _instance;
+
+
+        public static bool IsFading { get; private set; }
 
         private void Start()
         {
-            if(_chapterManager.CurrentChapter != Chapter.Non)
+            _instance = this;
+
+            if (_chapterManager.CurrentChapter != Chapter.Non)
             {
                 _animator.SetBool("Faded", false);
             }
@@ -24,8 +29,6 @@ namespace TDS
 
         public void FadeIn()
         {
-            //if (IsFading) return;
-            //Debug.Log("FadeIn");
             IsFading = true;
             _animator.SetBool("Faded", true);
         }
@@ -41,17 +44,21 @@ namespace TDS
         private void HandleFadeInAnimationOver()
         {
             IsFading = false;
+            //Debug.Log("HandleFadeInAnimationOver");
         }
 
         private void HandleFadeOutAnimationOver()
         {
             IsFading = false;
+            //Debug.Log("HandleFadeOutAnimationOver");
         }
 
         public void FaderInactive()
         {
             var image = GetComponentInChildren<Image>();
             image.gameObject.SetActive(false);
+            IsFading = false;
+            //Debug.Log("FaderInactive");
         }
     }
 }

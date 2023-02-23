@@ -27,8 +27,8 @@ namespace TDS
         [SerializeField]
         private Transform _cameraPoint;
 
-        [Space, SerializeField]
-        private Fader _fader;
+        //[Space, SerializeField]
+        //private Fader _fader;
         [SerializeField]
         private GameObject _faderImage;
 
@@ -54,7 +54,7 @@ namespace TDS
 
             //Debug.Log("CurrentChapter " + CurrentChapter);
             //Debug.Log("NextChapter " + NextChapter);
-            Debug.Log("_isOnBase " + _isOnBase);
+            //Debug.Log("_isOnBase " + _isOnBase);
         }
 
 
@@ -71,10 +71,10 @@ namespace TDS
         {
             _isOnBase = true;
             _faderImage.SetActive(true);
-            _fader.FadeIn();
-            Debug.Log("worked FadeIn LoadSceneRoutine");
+            Fader._instance.FadeIn();
+            //Debug.Log("worked FadeIn LoadSceneRoutine");
 
-            while (_fader.IsFading)
+            while (Fader.IsFading)
                 yield return null;
 
             UnLoadScene(ReturnLVL(CurrentChapter));
@@ -86,11 +86,11 @@ namespace TDS
 
             LoadScene(ReturnLVL(NextChapter));
 
-            while (_fader.IsFading)
+            while (Fader.IsFading)
                 yield return null;
 
-            _fader.FadeOut();
-            Debug.Log("worked FadeOut LoadSceneRoutine");
+            Fader._instance.FadeOut();
+            //Debug.Log("worked FadeOut LoadSceneRoutine");
 
             CurrentChapter = NextChapter;
             NextChapter = ReturnNextChapter();
@@ -140,20 +140,20 @@ namespace TDS
         {
             _isOnBase = false;
             _faderImage.SetActive(true);
-            _fader.FadeIn();
-            Debug.Log("worked FadeIn LeaveTheBase");
+            Fader._instance.FadeIn();
+            //Debug.Log("worked FadeIn LeaveTheBase");
 
             
 
-            while (_fader.IsFading) 
+            while (Fader.IsFading) 
                 yield return null;
 
             _playersTransform.position = ReturnPositionOnLVL();
             _cameraPoint.position = ReturnPositionOnLVL();
 
 
-            _fader.FadeOut();
-            Debug.Log(" worked FadeOut LeaveTheBase");
+            Fader._instance.FadeOut();
+            //Debug.Log(" worked FadeOut LeaveTheBase");
             
             yield return null;
         }
@@ -168,16 +168,16 @@ namespace TDS
                     _pos = new Vector3(-8.4f, -1f, -36f);
                     break;
                 case Chapter.FirstMeeting:
-                    _pos = new Vector3(-8.4f, -10f, -36f);
+                    _pos = new Vector3(-53f, -1f, -36f);
                     break;
                 case Chapter.TheIceHasBroken:
-                    _pos = new Vector3(-8.4f, -20f, -36f);
+                    _pos = new Vector3(-100f, -1f, -36f);
                     break;
                 case Chapter.LookUp:
-                    _pos = new Vector3(-8.4f, -30f, -36f);
+                    _pos = new Vector3(-150f, -1f, -36f);
                     break;
                 case Chapter.between:
-                    _pos = new Vector3(-8.4f, -40f, -36f);
+                    _pos = new Vector3(-8.4f, -1f, -36f);
                     break;
                 default:
                     _pos = new Vector3(29f, -1f, -36f);
