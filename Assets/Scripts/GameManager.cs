@@ -104,8 +104,11 @@ namespace TDS
 
         private void LevelVictory()
         {
-            if (_artifactsTaken == _totalArtifacts) NextChapter();
-
+            if (_artifactsTaken == _totalArtifacts)
+            {
+                NextChapter();
+                Debug.Log("LevelVictory");
+            }
         }
 
 

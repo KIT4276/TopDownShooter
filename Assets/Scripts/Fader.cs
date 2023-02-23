@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TDS
 {
@@ -8,16 +9,18 @@ namespace TDS
     {
         [SerializeField]
         private Animator _animator;
-
-        //public static Fader instance;
-
-        private void Start()
-        {
-            //instance = this;
-        }
+        [SerializeField]
+        private ChapterManager _chapterManager;
 
         public bool IsFading { get; private set; }
 
+        private void Start()
+        {
+            if(_chapterManager.CurrentChapter != Chapter.Non)
+            {
+                _animator.SetBool("Faded", false);
+            }
+        }
 
         public void FadeIn()
         {
@@ -45,16 +48,10 @@ namespace TDS
             IsFading = false;
         }
 
-        //public void FaderActive()
-        //{
-        //    gameObject.SetActive(true);
-        //    Debug.Log("FaderActive");
-        //}
-
         public void FaderInactive()
         {
-            gameObject.SetActive(false);
-            //Debug.Log("FaderInactive");
+            var image = GetComponentInChildren<Image>();
+            image.gameObject.SetActive(false);
         }
     }
 }

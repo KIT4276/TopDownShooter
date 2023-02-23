@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TDS
 {
@@ -21,6 +22,8 @@ namespace TDS
 
         [Space, SerializeField]
         private Fader _fader;
+        [SerializeField]
+        private GameObject _faderImage;
 
         //public bool IsAsyncLoaded { get; private set; }
         public Chapter CurrentChapter { get; private set; }
@@ -40,27 +43,25 @@ namespace TDS
 
         private void Update()
         {
-            if(CurrentChapter == NextChapter)
-            NextChapter = ReturnNextChapter();
+            //if(CurrentChapter == NextChapter) NextChapter = ReturnNextChapter();
 
-            //Debug.Log("CurrentChapter " + CurrentChapter);
-            //Debug.Log("NextChapter " + NextChapter);
+            Debug.Log("CurrentChapter " + CurrentChapter);
+            Debug.Log("NextChapter " + NextChapter);
 
         }
 
         public void LoadNextScene()
         {
-            if (NextChapter == Chapter.RoutineTask)
-            {
-                _player.SetActive(true);
-                //Debug.Log("NextChapter == Chapter.RoutineTask");
-            }
+            if (NextChapter == Chapter.RoutineTask) _player.SetActive(true);
+
+            Debug.Log("Current " + CurrentChapter);
+            Debug.Log("Next " + NextChapter);
             StartCoroutine(LoadSceneRoutine());
         }
 
         private IEnumerator LoadSceneRoutine()
         {
-            _fader.gameObject.SetActive(true);
+            _faderImage.SetActive(true);
             _fader.FadeIn();
 
             while (_fader.IsFading)
@@ -76,6 +77,7 @@ namespace TDS
             _fader.FadeOut();
 
             CurrentChapter = NextChapter;
+            NextChapter = ReturnNextChapter();
             yield return null;
         }
 
@@ -87,7 +89,7 @@ namespace TDS
             LVL.SetActive(true);
 
             //IsAsyncLoaded = true;
-            NextChapter = ReturnNextChapter();
+            //NextChapter = ReturnNextChapter();
             //_fader.gameObject.SetActive(false);
             //yield return null;
         }

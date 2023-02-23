@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TDS
 {
@@ -10,11 +11,13 @@ namespace TDS
         private ChapterManager _chapterManager;
         [SerializeField]
         private Fader _fader;
+        //[SerializeField]
+        //private GameObject _faderImage;
         public void NextLVL()
         {
             _chapterManager.LoadNextScene();
             Debug.Log("NextLVL");
-            _fader.gameObject.SetActive(true); 
+            //_faderImage.gameObject.SetActive(true);
         }
 
     }

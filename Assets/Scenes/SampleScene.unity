@@ -6879,6 +6879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 421728618}
+  _chapterManager: {fileID: 963194231}
 --- !u!1 &423075348
 GameObject:
   m_ObjectHideFlags: 0
@@ -15189,6 +15190,7 @@ MonoBehaviour:
   _lvl4: {fileID: 1068587223}
   _player: {fileID: 1882008432}
   _fader: {fileID: 421728623}
+  _faderImage: {fileID: 1978732518}
 --- !u!1 &978720150
 GameObject:
   m_ObjectHideFlags: 0
@@ -17913,7 +17915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1142129980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31355,7 +31357,7 @@ GameObject:
   - component: {fileID: 1978732521}
   - component: {fileID: 1978732520}
   m_Layer: 5
-  m_Name: Image
+  m_Name: FaderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
