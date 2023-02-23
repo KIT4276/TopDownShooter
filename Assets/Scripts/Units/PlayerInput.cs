@@ -23,6 +23,8 @@ namespace TDS
         private Text _healthText;
         [SerializeField]
         private Inventory _inventory;
+        [Space, SerializeField]
+        private ChapterManager _chapterManager;
 
         private void Awake()
         {
@@ -71,6 +73,7 @@ namespace TDS
 
         protected override void OnTriggerEnter(Collider other)
         {
+            if (other.GetComponent<TriggerComponent>() == null) return;
             base.OnTriggerEnter(other);
 
             switch (_triggerType)
@@ -93,6 +96,9 @@ namespace TDS
                     GameManager.instance.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
                     GameManager.instance.ArtifactCapture();
                     Destroy(other.gameObject);
+                    break;
+                case TriggerType.LeaveTheBase:
+                    _chapterManager.LeaveTheBase();
                     break;
                 default:
                     break;

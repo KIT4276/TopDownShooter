@@ -16,8 +16,9 @@ namespace TDS
         public void NextLVL()
         {
             _chapterManager.LoadNextScene();
-            Debug.Log("NextLVL");
+            //Debug.Log("NextLVL");
             //_faderImage.gameObject.SetActive(true);
+            _chapterManager.LeaveTheBase();
         }
 
     }

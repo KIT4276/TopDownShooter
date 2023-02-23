@@ -49,6 +49,7 @@ namespace TDS
         AidKit = 3,
         Docs = 4,
         Artifact = 5,
+        LeaveTheBase = 6,
     }
 
     public enum Chapter : byte

@@ -24,16 +24,16 @@ namespace TDS
 
         public void FadeIn()
         {
-            if (IsFading) return;
-            Debug.Log("FadeIn");
+            //if (IsFading) return;
+            //Debug.Log("FadeIn");
             IsFading = true;
             _animator.SetBool("Faded", true);
         }
 
         public void FadeOut()
         {
-            if (IsFading) return;
-            Debug.Log("FadeOut");
+            //if (IsFading) return;
+            //Debug.Log("FadeOut");
             IsFading = true;
             _animator.SetBool("Faded", false);
         }

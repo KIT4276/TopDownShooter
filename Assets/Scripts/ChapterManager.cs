@@ -7,6 +7,9 @@ namespace TDS
 {
     public class ChapterManager : MonoBehaviour
     {
+        private bool _isOnBase;
+        private Vector3 _positionOnBase = new Vector3(29, -1, -36);
+        
         [SerializeField]
         private GameObject _lvl0;
         [SerializeField]
@@ -19,6 +22,8 @@ namespace TDS
         private GameObject _lvl4;
         [SerializeField, Tooltip("Всё от персонажа, кроме CameraPoint")]
         private GameObject _player;
+        [SerializeField]
+        private Transform _playersTransform;
 
         [Space, SerializeField]
         private Fader _fader;
@@ -45,36 +50,40 @@ namespace TDS
         {
             //if(CurrentChapter == NextChapter) NextChapter = ReturnNextChapter();
 
-            Debug.Log("CurrentChapter " + CurrentChapter);
-            Debug.Log("NextChapter " + NextChapter);
-
+            //Debug.Log("CurrentChapter " + CurrentChapter);
+            //Debug.Log("NextChapter " + NextChapter);
+            Debug.Log("_isOnBase " + _isOnBase);
         }
+
 
         public void LoadNextScene()
         {
             if (NextChapter == Chapter.RoutineTask) _player.SetActive(true);
 
-            Debug.Log("Current " + CurrentChapter);
-            Debug.Log("Next " + NextChapter);
+            //Debug.Log("Current " + CurrentChapter);
+            //Debug.Log("Next " + NextChapter);
             StartCoroutine(LoadSceneRoutine());
         }
 
         private IEnumerator LoadSceneRoutine()
         {
+            _isOnBase = true;
             _faderImage.SetActive(true);
             _fader.FadeIn();
+            Debug.Log("worked FadeIn LoadSceneRoutine");
 
             while (_fader.IsFading)
                 yield return null;
 
             UnLoadScene(ReturnLVL(CurrentChapter));
+            if (_isOnBase) _playersTransform.position = _positionOnBase;
             LoadScene(ReturnLVL(NextChapter));
 
             while (_fader.IsFading)
                 yield return null;
 
-
             _fader.FadeOut();
+            Debug.Log("worked FadeOut LoadSceneRoutine");
 
             CurrentChapter = NextChapter;
             NextChapter = ReturnNextChapter();
@@ -83,7 +92,7 @@ namespace TDS
 
         public void LoadScene(GameObject LVL)
         {
-            Debug.Log("LoadScene " + LVL.name);
+            //Debug.Log("LoadScene " + LVL.name);
             //IsAsyncLoaded = false;
 
             LVL.SetActive(true);
@@ -95,9 +104,82 @@ namespace TDS
         }
         public void UnLoadScene(GameObject LVL)
         {
-            Debug.Log("UnLoadScene " + LVL.name);
+            //Debug.Log("UnLoadScene " + LVL.name);
             LVL.SetActive(false);
             //yield return null;
+        }
+
+        //public void LeaveTheBase()
+        //{
+        //    _isOnBase = false;
+        //    _fader.FadeIn();
+        //    Debug.Log("FadeIn LeaveTheBase");
+
+        //    _playersTransform.position = ReturnPositionOnLVL();
+
+        //    //while (_fader.IsFading) TY();
+
+
+        //    _fader.FadeOut();
+        //    Debug.Log("FadeOut LeaveTheBase");
+        //    //StartCoroutine(WaitForIsFading());
+        //}
+        public void LeaveTheBase()
+        {
+            StartCoroutine(LeaveTheBaseRoutine());
+        }
+
+        public IEnumerator LeaveTheBaseRoutine()
+        {
+            _isOnBase = false;
+            _faderImage.SetActive(true);
+            _fader.FadeIn();
+            Debug.Log("worked FadeIn LeaveTheBase");
+
+            
+
+            while (_fader.IsFading) 
+                yield return null;
+
+            _playersTransform.position = ReturnPositionOnLVL();
+
+
+            _fader.FadeOut();
+            Debug.Log(" worked FadeOut LeaveTheBase");
+            
+            yield return null;
+        }
+
+
+        private Vector3 ReturnPositionOnLVL()
+        {
+            Vector3 _pos;
+            switch (CurrentChapter)
+            {
+                //case Chapter.Non:
+                //    _pos = Vector3.zero; // пока так
+                //    break;
+                case Chapter.RoutineTask:
+                    _pos = new Vector3(-8.4f, -1f, -36f);
+                    break;
+                case Chapter.FirstMeeting:
+                    _pos = new Vector3(-8.4f, -10f, -36f);
+                    break;
+                case Chapter.TheIceHasBroken:
+                    _pos = new Vector3(-8.4f, -20f, -36f);
+                    break;
+                case Chapter.LookUp:
+                    _pos = new Vector3(-8.4f, -30f, -36f);
+                    break;
+                case Chapter.between:
+                    _pos = new Vector3(-8.4f, -40f, -36f);
+                    break;
+                default:
+                    _pos = new Vector3(29f, -1f, -36f);
+                    break;
+            }
+
+            return _pos;
         }
 
         public GameObject ReturnLVL(Chapter chapter)
@@ -127,7 +209,7 @@ namespace TDS
             return LVL;
         }
 
-        public Chapter ReturnNextChapter() //--------------------------------------------ну почему не работает?!
+        public Chapter ReturnNextChapter() 
         {
             Chapter nextChapter; 
             switch (CurrentChapter)

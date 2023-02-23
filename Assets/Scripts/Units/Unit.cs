@@ -99,6 +99,8 @@ namespace TDS
         protected virtual void OnTriggerEnter(Collider other)
         {
             //Debug.Log("OnTriggerEnter");
+            if (other.GetComponent<TriggerComponent>() == null) return;
+
             _triggerType = other.GetComponent<TriggerComponent>().GetTriggerType();
 
             if(_triggerType == TriggerType.Projectile)
