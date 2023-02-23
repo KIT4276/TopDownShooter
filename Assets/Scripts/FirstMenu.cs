@@ -6,10 +6,16 @@ namespace TDS
 {
     public class FirstMenu : MonoBehaviour
     {
+        [SerializeField]
+        private ChapterManager _chapterManager;
+        [SerializeField]
+        private Fader _fader;
         public void NextLVL()
         {
-            SceneLoader.instance.LoadScene(Chapter.RoutineTask);
+            _chapterManager.LoadNextScene();
             Debug.Log("NextLVL");
+            _fader.gameObject.SetActive(true); 
         }
+
     }
 }

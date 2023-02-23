@@ -26,11 +26,11 @@ namespace TDS
         private Text _artifactsTakenText;
         [SerializeField]
         private Text _totalArtifactsText;
-        [SerializeField]
-        private Text _chapterName;
+        //[SerializeField]
+        //private Text _chapterName;
 
-        [Space, SerializeField]
-        private float _delayBeforeMission = 5;
+        //[Space, SerializeField]
+        //private float _delayBeforeMission = 5;
 
         [SerializeField]
         private GameObject _player;
@@ -71,8 +71,7 @@ namespace TDS
             _experienceInChapter = 0;
             _artifactsTaken = 0;
 
-            Chapter nextChapter = ChapterManager.instance.ReturnNextChapter();
-            SceneLoader.instance.LoadScene(nextChapter); // --------------------------------------отсюда начинается цепочка
+            _chapterManager.LoadNextScene(); // --------------------------------------отсюда начинается цепочка
 
             switch (_chapterManager.CurrentChapter)
             {
@@ -92,16 +91,16 @@ namespace TDS
                     break;
             }
 
-            _chapterName.text = _chapterManager.CurrentChapter.ToString();
-            _chapterName.gameObject.SetActive(true);
-            StartCoroutine(DelayBeforeMission());
+            //_chapterName.text = _chapterManager.CurrentChapter.ToString();
+            //_chapterName.gameObject.SetActive(true);
+            //StartCoroutine(DelayBeforeMission());
         }
 
-        private IEnumerator DelayBeforeMission()
-        {
-            yield return new WaitForSeconds(_delayBeforeMission);
-            _chapterName.gameObject.SetActive(false);
-        }
+        //private IEnumerator DelayBeforeMission()
+        //{
+        //    yield return new WaitForSeconds(_delayBeforeMission);
+        //    //_chapterName.gameObject.SetActive(false);
+        //}
 
         private void LevelVictory()
         {
