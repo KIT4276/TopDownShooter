@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,58 +6,67 @@ namespace TDS
 {
     public class Fader : MonoBehaviour
     {
+        private const string FADER_PATH = "Prefabs/Others/FaderCanvas";
+
         [SerializeField]
         private Animator _animator;
-        [SerializeField]
-        private ChapterManager _chapterManager;
 
         public static Fader _instance;
 
-
-        public static bool IsFading { get; private set; }
-
-        private void Start()
+        public static Fader Instance
         {
-            _instance = this;
-
-            if (_chapterManager.CurrentChapter != Chapter.Non)
+            get 
             {
-                _animator.SetBool("Faded", false);
+                if(_instance == null)
+                {
+                    var prefab = Resources.Load<Fader>(FADER_PATH);
+                    _instance = Instantiate(prefab);
+                    DontDestroyOnLoad(_instance.gameObject);
+                }
+                return _instance;
             }
         }
 
-        public void FadeIn()
+        public static bool IsFading { get; private set; }
+
+        private Action _fadedInCallBack;
+        private Action _fadedOutCallBack;
+
+        public void FadeIn(Action fadedInCallBack)
         {
+            if (IsFading) return;
+            _fadedInCallBack = fadedInCallBack;
             IsFading = true;
             _animator.SetBool("Faded", true);
         }
 
-        public void FadeOut()
+        public void FadeOut(Action fadedOutCallBack)
         {
-            //if (IsFading) return;
-            //Debug.Log("FadeOut");
+            if (IsFading) return;
+            _fadedOutCallBack = fadedOutCallBack;
             IsFading = true;
             _animator.SetBool("Faded", false);
         }
 
         private void HandleFadeInAnimationOver()
         {
+            _fadedInCallBack?.Invoke();
+            _fadedInCallBack = null;
             IsFading = false;
-            //Debug.Log("HandleFadeInAnimationOver");
         }
 
         private void HandleFadeOutAnimationOver()
         {
+            _fadedOutCallBack?.Invoke();
+            _fadedOutCallBack = null;
             IsFading = false;
-            //Debug.Log("HandleFadeOutAnimationOver");
         }
 
-        public void FaderInactive()
-        {
-            var image = GetComponentInChildren<Image>();
-            image.gameObject.SetActive(false);
-            IsFading = false;
-            //Debug.Log("FaderInactive");
-        }
+        //public void FaderInactive()
+        //{
+        //    var image = GetComponentInChildren<Image>();
+        //    image.gameObject.SetActive(false);
+        //    IsFading = false;
+        //}
     }
 }

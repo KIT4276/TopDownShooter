@@ -34,8 +34,8 @@ namespace TDS
 
         [SerializeField]
         private GameObject _player;
-        [SerializeField]
-        private ChapterManager _chapterManager;
+        //[SerializeField]
+        //private ChapterManager _chapterManager;
 
         public static GameManager instance;
 
@@ -71,25 +71,25 @@ namespace TDS
             _experienceInChapter = 0;
             _artifactsTaken = 0;
 
-            _chapterManager.LoadNextScene(); // --------------------------------------отсюда начинается цепочка
+            //_chapterManager.LoadNextScene(); // ----------------------------this is where the new scene loading chain starts
 
-            switch (_chapterManager.CurrentChapter)
-            {
-                case Chapter.RoutineTask:
-                    _totalArtifacts = _artifactsPrChapter1;
-                    break;
-                case Chapter.FirstMeeting:
-                    _totalArtifacts = _artifactsPrChapter2;
-                    break;
-                case Chapter.TheIceHasBroken:
-                    _totalArtifacts = _artifactsPrChapter3;
-                    break;
-                case Chapter.LookUp:
-                    _totalArtifacts = _artifactsPrChapter4;
-                    break;
-                default:
-                    break;
-            }
+            //switch (_chapterManager.CurrentChapter)
+            //{
+            //    case Chapter.RoutineTask:
+            //        _totalArtifacts = _artifactsPrChapter1;
+            //        break;
+            //    case Chapter.FirstMeeting:
+            //        _totalArtifacts = _artifactsPrChapter2;
+            //        break;
+            //    case Chapter.TheIceHasBroken:
+            //        _totalArtifacts = _artifactsPrChapter3;
+            //        break;
+            //    case Chapter.LookUp:
+            //        _totalArtifacts = _artifactsPrChapter4;
+            //        break;
+            //    default:
+            //        break;
+            //}
 
             //_chapterName.text = _chapterManager.CurrentChapter.ToString();
             //_chapterName.gameObject.SetActive(true);

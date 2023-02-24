@@ -7,19 +7,6 @@ namespace TDS
 {
     public class ChapterManager : MonoBehaviour
     {
-        private bool _isOnBase;
-        private Vector3 _positionOnBase = new Vector3(29, -1, -36);
-        
-        [SerializeField]
-        private GameObject _lvl0;
-        [SerializeField]
-        private GameObject _lvl1;
-        [SerializeField]
-        private GameObject _lvl2;
-        [SerializeField]
-        private GameObject _lvl3;
-        [SerializeField]
-        private GameObject _lvl4;
         [SerializeField, Tooltip("Всё от персонажа, кроме CameraPoint")]
         private GameObject _player;
         [SerializeField]
@@ -44,7 +31,7 @@ namespace TDS
             CurrentChapter = Chapter.Non;
             NextChapter = Chapter.RoutineTask;
             //_fader.gameObject.SetActive(false);
-            _lvl0.SetActive(true);
+            //_lvl0.SetActive(true);
             //_fader.gameObject.SetActive(true);
         }
 
@@ -69,27 +56,27 @@ namespace TDS
 
         private IEnumerator LoadSceneRoutine()
         {
-            _isOnBase = true;
+            //_isOnBase = true;
             _faderImage.SetActive(true);
-            Fader._instance.FadeIn();
+            //Fader._instance.FadeIn();
             //Debug.Log("worked FadeIn LoadSceneRoutine");
 
             while (Fader.IsFading)
                 yield return null;
 
             UnLoadScene(ReturnLVL(CurrentChapter));
-            if (_isOnBase)
-            {
-                _playersTransform.position = _positionOnBase;
-                _cameraPoint.position = _positionOnBase;
-            }
+            //if (_isOnBase)
+            //{
+            //    _playersTransform.position = _positionOnBase;
+            //    _cameraPoint.position = _positionOnBase;
+            //}
 
             LoadScene(ReturnLVL(NextChapter));
 
             while (Fader.IsFading)
                 yield return null;
 
-            Fader._instance.FadeOut();
+            //Fader._instance.FadeOut();
             //Debug.Log("worked FadeOut LoadSceneRoutine");
 
             CurrentChapter = NextChapter;
@@ -116,21 +103,6 @@ namespace TDS
             //yield return null;
         }
 
-        //public void LeaveTheBase()
-        //{
-        //    _isOnBase = false;
-        //    _fader.FadeIn();
-        //    Debug.Log("FadeIn LeaveTheBase");
-
-        //    _playersTransform.position = ReturnPositionOnLVL();
-
-        //    //while (_fader.IsFading) TY();
-
-
-        //    _fader.FadeOut();
-        //    Debug.Log("FadeOut LeaveTheBase");
-        //    //StartCoroutine(WaitForIsFading());
-        //}
         public void LeaveTheBase()
         {
             StartCoroutine(LeaveTheBaseRoutine());
@@ -138,9 +110,9 @@ namespace TDS
 
         public IEnumerator LeaveTheBaseRoutine()
         {
-            _isOnBase = false;
+            //_isOnBase = false;
             _faderImage.SetActive(true);
-            Fader._instance.FadeIn();
+            //Fader._instance.FadeIn();
             //Debug.Log("worked FadeIn LeaveTheBase");
 
             
@@ -152,7 +124,7 @@ namespace TDS
             _cameraPoint.position = ReturnPositionOnLVL();
 
 
-            Fader._instance.FadeOut();
+            //Fader._instance.FadeOut();
             //Debug.Log(" worked FadeOut LeaveTheBase");
             
             yield return null;
@@ -189,29 +161,29 @@ namespace TDS
 
         public GameObject ReturnLVL(Chapter chapter)
         {
-            GameObject LVL;
+            //GameObject LVL;
             switch (chapter)
             {
                 case Chapter.Non:
-                    LVL = _lvl0;
+                    //LVL = _lvl0;
                     break;
                 case Chapter.RoutineTask:
-                    LVL = _lvl1;
+                    //LVL = _lvl1;
                     break;
                 case Chapter.FirstMeeting:
-                    LVL = _lvl2;
+                    //LVL = _lvl2;
                     break;
                 case Chapter.TheIceHasBroken:
-                    LVL = _lvl3;
+                    //LVL = _lvl3;
                     break;
                 case Chapter.LookUp:
-                    LVL = _lvl4;
+                    //LVL = _lvl4;
                     break;
                 default:
-                    LVL = _lvl0;
+                    //LVL = _lvl0;
                     break;
             }
-            return LVL;
+            return null;
         }
 
         public Chapter ReturnNextChapter() 
