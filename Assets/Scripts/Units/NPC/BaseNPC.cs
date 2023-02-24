@@ -72,7 +72,7 @@ namespace TDS
             _animator.SetBool("Move", false);
             
             yield return new WaitForSeconds(_timeToDstruction);
-            GameManager.instance.AddExperience(_XPForKilling);
+            GameManager._instance.AddExperience(_XPForKilling);
             Destroy(gameObject);
         }
     }

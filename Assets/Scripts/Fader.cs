@@ -1,17 +1,16 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TDS
 {
     public class Fader : MonoBehaviour
     {
-        private const string FADER_PATH = "Prefabs/Others/FaderCanvas";
+        private const string FADER_PATH = "Prefabs/Others/Fader";
 
         [SerializeField]
         private Animator _animator;
 
-        public static Fader _instance;
+        private static Fader _instance;
 
         public static Fader Instance
         {
@@ -32,6 +31,20 @@ namespace TDS
         private Action _fadedInCallBack;
         private Action _fadedOutCallBack;
 
+        private void HandleFadeInAnimationOver()
+        {
+            _fadedInCallBack?.Invoke();
+            _fadedInCallBack = null;
+            IsFading = false;
+        }
+
+        private void HandleFadeOutAnimationOver()
+        {
+            _fadedOutCallBack?.Invoke();
+            _fadedOutCallBack = null;
+            IsFading = false;
+        }
+
         public void FadeIn(Action fadedInCallBack)
         {
             if (IsFading) return;
@@ -47,26 +60,5 @@ namespace TDS
             IsFading = true;
             _animator.SetBool("Faded", false);
         }
-
-        private void HandleFadeInAnimationOver()
-        {
-            _fadedInCallBack?.Invoke();
-            _fadedInCallBack = null;
-            IsFading = false;
-        }
-
-        private void HandleFadeOutAnimationOver()
-        {
-            _fadedOutCallBack?.Invoke();
-            _fadedOutCallBack = null;
-            IsFading = false;
-        }
-
-        //public void FaderInactive()
-        //{
-        //    var image = GetComponentInChildren<Image>();
-        //    image.gameObject.SetActive(false);
-        //    IsFading = false;
-        //}
     }
 }

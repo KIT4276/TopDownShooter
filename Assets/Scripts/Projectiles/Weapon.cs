@@ -8,9 +8,6 @@ namespace TDS
 {
     public class Weapon : BaseWeapon
     {
-        
-
-        
 
         [Space, SerializeField]
         private Text _ammoInMagText;
@@ -37,7 +34,8 @@ namespace TDS
             _ammoInMag“ear = _magazineCapacity;
             _ammoInMagFurther = _magazineCapacity;
             ActiveWeapon = ProjectileType.“ear; //_tearWeaponObject;
-            _ammoInMagText.color = Color.green;
+            _ammoInMagText.color = Color.blue;
+            _leftAmmoText.color = Color.blue;
         }
 
         private void Update()
@@ -46,16 +44,16 @@ namespace TDS
             {
                 _ammoInMagText.text = _ammoInMagFurther.ToString();
                 _leftAmmoText.text = _leftAmmoFurther.ToString();
-                if (_leftAmmoFurther <= _magazineCapacity) _leftAmmoText.color = Color.yellow;
-                else _leftAmmoText.color = Color.blue;
+                //if (_leftAmmoFurther <= _magazineCapacity) _leftAmmoText.color = Color.red;
+                //else _leftAmmoText.color = Color.yellow;
             }
 
             else
             {
                 _ammoInMagText.text = _ammoInMag“ear.ToString();
                 _leftAmmoText.text = _leftAmmo“ear.ToString();
-                if (_leftAmmoFurther <= _magazineCapacity) _leftAmmoText.color = Color.red;
-                else _leftAmmoText.color = Color.green;
+                //if (_leftAmmoFurther <= _magazineCapacity) _leftAmmoText.color = Color.red;
+                //else _leftAmmoText.color = Color.blue;
             }
 
         }
@@ -67,7 +65,8 @@ namespace TDS
                 ActiveWeapon =  ProjectileType.Further;// _furtherWeaponObject;
                 _tearWeaponObject.SetActive(false);
                 _furtherWeaponObject.SetActive(true);
-                _ammoInMagText.color = Color.blue;
+                _ammoInMagText.color = Color.yellow;
+                _leftAmmoText.color = Color.yellow;
                 _furtherWeaponImage.SetActive(true);
                 _tearWeaponImage.SetActive(false);
             }
@@ -76,7 +75,8 @@ namespace TDS
                 ActiveWeapon = ProjectileType.“ear;//_tearWeaponObject;
                 _tearWeaponObject.SetActive(true);
                 _furtherWeaponObject.SetActive(false);
-                _ammoInMagText.color = Color.green;
+                _ammoInMagText.color = Color.blue;
+                _leftAmmoText.color = Color.blue;
                 _furtherWeaponImage.SetActive(false);
                 _tearWeaponImage.SetActive(true);
             }

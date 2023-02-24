@@ -16,17 +16,11 @@ namespace TDS
         private Vector3 _screenMousePosition;
         private Vector3 _worldMmousePosition;
         private Vector3 _targetForLookAt;
-        //private Vector3 _movement;
-
         
         [SerializeField]
         private Text _healthText;
         [SerializeField]
         private Inventory _inventory;
-        [Space, SerializeField]
-        private ChapterManager _chapterManager;
-        //[SerializeField]
-        //private Fader _fader;
 
         private void Awake()
         {
@@ -40,12 +34,6 @@ namespace TDS
         {
             _direction = _controls.PlayerInputMapp.Move.ReadValue<Vector2>();
             _movement = new Vector3(_direction.x, 0f, _direction.y).normalized;
-
-            //var norm = _targetForLookAt.normalized;
-
-            //_moveDirection = new Vector3(_movement.x - norm.x, 0f, _movement.y - norm.z);// тут исправить
-            //_moveDirection = _movement - norm;
-
 
             OnMove();
             OnRotate();
@@ -62,9 +50,7 @@ namespace TDS
         }
 
         private void Fire(InputAction.CallbackContext obj)
-        {
-            ToShoot(_projectilesPool, _weaponTransform);
-        }
+            => ToShoot(_projectilesPool, _weaponTransform);
 
         private void OnRotate()
         {
@@ -99,19 +85,17 @@ namespace TDS
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Artifact:
-                    GameManager.instance.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
-                    GameManager.instance.ArtifactCapture();
+                    GameManager._instance.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
+                    GameManager._instance.ArtifactCapture();
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.LeaveTheBase:
-                    _chapterManager.LeaveTheBase();
+                    //---------------------------------------------------------todo moving from base to location
                     break;
                 default:
                     break;
             }
         }
-
-        //public Vector3 GetTargetForLookAt() => _targetForLookAt;
 
         private void OnEnable()
            => _controls.PlayerInputMapp.Enable();

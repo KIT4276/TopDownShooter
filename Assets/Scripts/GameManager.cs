@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TDS
@@ -11,106 +12,93 @@ namespace TDS
         private static int _totalExperience; 
         private static int _artifactsTaken;
         private static int _totalArtifacts;
-        //private static Chapter _currentChapter;
 
         [SerializeField]
-        private int _artifactsPrChapter1 = 1;
+        private int _artifactsOnLVL1 = 1;
         [SerializeField]
-        private int _artifactsPrChapter2 = 3; 
+        private int _artifactsOnLVL2 = 3; 
         [SerializeField]
-        private int _artifactsPrChapter3 = 5;
+        private int _artifactsOnLVL3 = 5;
         [SerializeField]
-        private int _artifactsPrChapter4 = 4;
+        private int _artifactsOnLVL4 = 4;
 
         [Space, SerializeField]
         private Text _artifactsTakenText;
         [SerializeField]
         private Text _totalArtifactsText;
-        //[SerializeField]
-        //private Text _chapterName;
-
-        //[Space, SerializeField]
-        //private float _delayBeforeMission = 5;
 
         [SerializeField]
         private GameObject _player;
-        //[SerializeField]
-        //private ChapterManager _chapterManager;
 
-        public static GameManager instance;
+        public static GameManager _instance;
 
         private void Start()
         {
-            instance = this;
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            _instance = this;
 
-            //Fader.instance.FadeIn(); // todo
-
-            //_currentChapter = Chapter.RoutineTask;
-            //_chapterName.text = _chapterManager.CurrentChapter.ToString();
-            _totalArtifacts = _artifactsPrChapter1;
+            _totalArtifacts = ReturnArtifactsOnLVL();
         }
 
         private void Update()
         {
-            //Debug.Log("In Chapter " + _experienceInChapter);
-            //Debug.Log("Total " + _totalExperience);
-
             _artifactsTakenText.text = _artifactsTaken.ToString();
             _totalArtifactsText.text = _totalArtifacts.ToString();
 
             LevelVictory();
         }
 
-
         private void NextChapter()
         {
-            //_chapterName.gameObject.SetActive(false);
             //-------------------------------------------------todo Events at the base between chapters, maybe a video
-
             _totalExperience += _experienceInChapter;
             _experienceInChapter = 0;
             _artifactsTaken = 0;
 
-            //_chapterManager.LoadNextScene(); // ----------------------------this is where the new scene loading chain starts
-
-            //switch (_chapterManager.CurrentChapter)
-            //{
-            //    case Chapter.RoutineTask:
-            //        _totalArtifacts = _artifactsPrChapter1;
-            //        break;
-            //    case Chapter.FirstMeeting:
-            //        _totalArtifacts = _artifactsPrChapter2;
-            //        break;
-            //    case Chapter.TheIceHasBroken:
-            //        _totalArtifacts = _artifactsPrChapter3;
-            //        break;
-            //    case Chapter.LookUp:
-            //        _totalArtifacts = _artifactsPrChapter4;
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-            //_chapterName.text = _chapterManager.CurrentChapter.ToString();
-            //_chapterName.gameObject.SetActive(true);
-            //StartCoroutine(DelayBeforeMission());
+            NextLVL(); //--------------------------------------------this is where the new scene loading chain starts
         }
 
-        //private IEnumerator DelayBeforeMission()
-        //{
-        //    yield return new WaitForSeconds(_delayBeforeMission);
-        //    //_chapterName.gameObject.SetActive(false);
-        //}
+         
 
         private void LevelVictory()
         {
-            if (_artifactsTaken == _totalArtifacts)
-            {
+            if (_artifactsTaken == _totalArtifacts) 
                 NextChapter();
-                //Debug.Log("LevelVictory");
-            }
         }
 
+        private int ReturnArtifactsOnLVL()
+        {
+            int artifactsOnLVL;
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "LVL0":
+                    artifactsOnLVL = 1;
+                    break;
+                case "LVL1":
+                    artifactsOnLVL = _artifactsOnLVL1;
+                    break;
+                case "LVL2":
+                    artifactsOnLVL = _artifactsOnLVL2;
+                    break;
+                case "LVL3":
+                    artifactsOnLVL = _artifactsOnLVL3;
+                    break;
+                case "LVL4":
+                    artifactsOnLVL = _artifactsOnLVL4;
+                    break;
+                default:
+                    artifactsOnLVL = 1;
+                    break;
+            }
+            return artifactsOnLVL;
+        }
+
+        public void NextLVL()
+            => LVLManager._instance.LoadScene(LVLManager._instance.ReturnNextSceneName());
 
         public void ArtifactCapture()
             => _artifactsTaken++;
