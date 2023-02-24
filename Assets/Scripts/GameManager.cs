@@ -26,8 +26,12 @@ namespace TDS
         private Text _artifactsTakenText;
         [SerializeField]
         private Text _totalArtifactsText;
-
         [SerializeField]
+        private Text _experienceText;
+        [SerializeField]
+        private Text _totalExperienceText;
+
+        [Space, SerializeField]
         private GameObject _player;
 
         public static GameManager _instance;
@@ -48,6 +52,8 @@ namespace TDS
         {
             _artifactsTakenText.text = _artifactsTaken.ToString();
             _totalArtifactsText.text = _totalArtifacts.ToString();
+            _experienceText.text = _experienceInChapter.ToString();
+            _totalExperienceText.text = _totalExperience.ToString();
 
             LevelVictory();
         }

@@ -85,6 +85,7 @@ namespace TDS
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Artifact:
+                    _animator.enabled = false; // -----------------------------todo stop animation more carefully
                     GameManager._instance.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
                     GameManager._instance.ArtifactCapture();
                     Destroy(other.gameObject);
