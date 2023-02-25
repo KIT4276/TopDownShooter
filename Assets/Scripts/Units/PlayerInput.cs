@@ -11,22 +11,25 @@ namespace TDS
     public class PlayerInput : Unit
     {
         private PlayerControls _controls;
-        private Camera _camera;
-        private Vector2 _direction;
-        private Vector3 _screenMousePosition;
-        private Vector3 _worldMmousePosition;
-        private Vector3 _targetForLookAt;
         
+        private Vector2 _direction;
+        private Vector3 _targetForLookAt;
+        private int _layerMask;
+        private RaycastHit _hit;
+        private Ray _ray;
+
         [SerializeField]
         private Text _healthText;
         [SerializeField]
         private Inventory _inventory;
+        [SerializeField]
+        private Camera _camera;
 
         private void Awake()
         {
             _controls = new PlayerControls();
             _controls.PlayerInputMapp.Attack.performed += Fire;
-            _camera = Camera.main;
+            //_camera = Camera.main;
         }
 
 
@@ -34,34 +37,39 @@ namespace TDS
         {
             _direction = _controls.PlayerInputMapp.Move.ReadValue<Vector2>();
             _movement = new Vector3(_direction.x, 0f, _direction.y).normalized;
+            _healthText.text = _currentHealth.ToString();
 
+            if (Fader.IsFading) return;
             OnMove();
             OnRotate();
-            _healthText.text = _currentHealth.ToString();
         }
 
         private void OnMove()
         {
-            if (Fader.IsFading) return;
-
-            transform.position += _movement * unitParams.MoveSpeed * Time.deltaTime;
+            transform.position += _movement * _unitParams.MoveSpeed * Time.deltaTime;
             if (_movement != new Vector3(0f, 0f, 0f)) _actionType = ActionType.Move;
             else _actionType = ActionType.Idle;
         }
 
         private void Fire(InputAction.CallbackContext obj)
-            => ToShoot(_projectilesPool, _weaponTransform);
+        {
+            if (Fader.IsFading) return;
+            ToShoot(_projectilesPool, _weaponTransform);
+        }
 
         private void OnRotate()
         {
-            if (Fader.IsFading) return;
+            _layerMask = 1 << 6;
+            _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-            _screenMousePosition = _controls.PlayerInputMapp.Aiming.ReadValue<Vector2>();
-            _worldMmousePosition = _camera.ScreenToWorldPoint(new Vector3(_screenMousePosition.x, _screenMousePosition.y, _camera.transform.position.y));
-            _targetForLookAt = new Vector3(_worldMmousePosition.x, transform.position.y, _worldMmousePosition.z);
+            if (Physics.Raycast(_ray, out _hit, 1000, _layerMask))
+            {
+                _targetForLookAt = new Vector3(_hit.point.x, transform.position.y, _hit.point.z);
+            }
 
             transform.LookAt(_targetForLookAt);
         }
+
 
         protected override void OnTriggerEnter(Collider other)
         {
@@ -77,7 +85,7 @@ namespace TDS
                     break;
                 case TriggerType.AidKit:
                     _currentHealth += other.GetComponent<TriggerComponent>().GetValue();
-                    if (_currentHealth > unitParams._maxHealth) _currentHealth = unitParams._maxHealth;
+                    if (_currentHealth > _unitParams._maxHealth) _currentHealth = _unitParams._maxHealth;
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Docs:

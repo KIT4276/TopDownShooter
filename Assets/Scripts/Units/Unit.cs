@@ -21,7 +21,7 @@ namespace TDS
 
 
         [SerializeField]
-        protected UnitParams unitParams;
+        protected UnitParams _unitParams;
         [SerializeField]
         protected Animator _animator;
         [SerializeField]
@@ -34,7 +34,7 @@ namespace TDS
 
         protected void Start()
         {
-            _currentHealth = unitParams._maxHealth;
+            _currentHealth = _unitParams._maxHealth;
         }
 
         protected  void Update()
@@ -81,7 +81,7 @@ namespace TDS
                 _projectile = Instantiate(Resources.Load<GameObject>(_weaponClass.GetProjectile()),
                     weapon.transform.position, weapon.transform.rotation, parent);
                 _weaponClass.CallOnShoot();
-                _projectile.GetComponent<Projectile>().SideType = unitParams._sideType;
+                _projectile.GetComponent<Projectile>().SideType = _unitParams._sideType;
             }
 #if UNITY_EDITOR
             else
@@ -105,7 +105,7 @@ namespace TDS
 
             if(_triggerType == TriggerType.Projectile)
             {
-                if (other.GetComponent<Projectile>().SideType != unitParams._sideType)
+                if (other.GetComponent<Projectile>().SideType != _unitParams._sideType)
                 {
                     SetDamage(other.GetComponent<Projectile>().Damage);
                     Destroy(other.gameObject);
@@ -130,7 +130,7 @@ namespace TDS
         public void RestoreHealth(float restore)
         {
             _currentHealth += restore;
-            if (_currentHealth > unitParams._maxHealth) _currentHealth = unitParams._maxHealth;
+            if (_currentHealth > _unitParams._maxHealth) _currentHealth = _unitParams._maxHealth;
         }
     }
 }
