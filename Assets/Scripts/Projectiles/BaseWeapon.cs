@@ -95,6 +95,13 @@ namespace TDS
             }
         }
 
+
+        public void PutAwayWeapon()
+        {
+            _furtherWeaponObject.SetActive(false);
+            _tearWeaponObject.SetActive(false);
+        }
+
         public virtual bool GetAbilityToShoot() => true;
 
         public virtual void CallOnShoot() { } // заглушка

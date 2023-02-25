@@ -39,6 +39,7 @@ namespace TDS
         Interact = 3, // взаимодействие
         Die = 4,
         HitReact = 5, // ранение
+        Walk = 6,
     }
 
     public enum TriggerType : byte

@@ -1477,14 +1477,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8d405bdb9e35c4a8f6c474cb9cbde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitParams: {fileID: 6580328735799754116}
+  _unitParams: {fileID: 6580328735799754116}
   _animator: {fileID: 736500953180741867}
   _weaponClass: {fileID: 6580328735799754117}
   _weaponTransform: {fileID: 6580328737355777947}
   _projectilesPool: {fileID: 0}
   _healthText: {fileID: 0}
   _inventory: {fileID: 6580328735799754119}
-  _chapterManager: {fileID: 0}
+  _camera: {fileID: 6580328737778131900}
 --- !u!114 &6580328735799754117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,8 +1503,8 @@ MonoBehaviour:
   _NPCActiveWeapon: 1
   _ammoInMagText: {fileID: 0}
   _leftAmmoText: {fileID: 0}
-  _tearWeaponImage: {fileID: 0}
-  _furtherWeaponImage: {fileID: 0}
+  _tearWeaponImage: {fileID: 6580328736847176712}
+  _furtherWeaponImage: {fileID: 6580328736018750131}
 --- !u!114 &6580328735799754116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,6 +1939,8 @@ MonoBehaviour:
   _artifactsOnLVL4: 4
   _artifactsTakenText: {fileID: 0}
   _totalArtifactsText: {fileID: 0}
+  _experienceText: {fileID: 0}
+  _totalExperienceText: {fileID: 0}
   _player: {fileID: 6310510437269938219}
 --- !u!1 &6589490894176146307
 GameObject:

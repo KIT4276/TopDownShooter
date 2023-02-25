@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace TDS
 {
@@ -17,6 +18,7 @@ namespace TDS
         private int _layerMask;
         private RaycastHit _hit;
         private Ray _ray;
+        private bool _isOnBase;
 
         [SerializeField]
         private Text _healthText;
@@ -29,7 +31,7 @@ namespace TDS
         {
             _controls = new PlayerControls();
             _controls.PlayerInputMapp.Attack.performed += Fire;
-            //_camera = Camera.main;
+            if(SceneManager.GetActiveScene().name != "LVL1") _isOnBase = true;
         }
 
 
@@ -47,7 +49,15 @@ namespace TDS
         private void OnMove()
         {
             transform.position += _movement * _unitParams.MoveSpeed * Time.deltaTime;
-            if (_movement != new Vector3(0f, 0f, 0f)) _actionType = ActionType.Move;
+            if (_movement != new Vector3(0f, 0f, 0f))
+            {
+                if (_isOnBase)
+                {
+                    _weaponClass.PutAwayWeapon();
+                    _actionType = ActionType.Walk;
+                }
+                else _actionType = ActionType.Move;
+            }
             else _actionType = ActionType.Idle;
         }
 

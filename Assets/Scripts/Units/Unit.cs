@@ -48,11 +48,10 @@ namespace TDS
             {
                 case ActionType.Idle:
                     _animator.SetBool("Move", false);
+                    _animator.SetBool("Walk", false);
                     break;
                 case ActionType.Move:
                     _animator.SetBool("Move", true);
-                    //_animator.SetFloat("ForvardMove", _moveDirection.z); // not working
-                    //_animator.SetFloat("SideMove", _moveDirection.x);
                     break;
                 case ActionType.Shooting:
                     _animator.SetTrigger("Shoot");
@@ -65,6 +64,9 @@ namespace TDS
                     break;
                 case ActionType.HitReact:
                     _animator.SetTrigger("HitReact");
+                    break;
+                case ActionType.Walk:
+                    _animator.SetBool("Walk", true);
                     break;
                 default:
                     break;
