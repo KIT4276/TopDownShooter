@@ -14,12 +14,17 @@ namespace TDS
         private PlayerControls _controls;
         
         private Vector2 _direction;
+
+        private Vector3 _inputVector;
+        private Vector3 _animationVector;
         private Vector3 _targetForLookAt;
         private int _layerMask;
         private RaycastHit _hit;
         private Ray _ray;
         private bool _isOnBase;
 
+        [Space, SerializeField]
+        private Transform _player;
         [SerializeField]
         private Text _healthText;
         [SerializeField]
@@ -39,6 +44,8 @@ namespace TDS
         {
             _direction = _controls.PlayerInputMapp.Move.ReadValue<Vector2>();
             _movement = new Vector3(_direction.x, 0f, _direction.y).normalized;
+
+
             _healthText.text = _currentHealth.ToString();
 
             if (Fader.IsFading) return;
@@ -75,9 +82,16 @@ namespace TDS
             if (Physics.Raycast(_ray, out _hit, 1000, _layerMask))
             {
                 _targetForLookAt = new Vector3(_hit.point.x, transform.position.y, _hit.point.z);
+
+                _inputVector = (Vector3.forward * _direction.y) + (Vector3.right * _direction.x);
+
+                _animationVector = _player.transform.InverseTransformDirection(_inputVector);
+
+                _animator.SetFloat("SideMove", _animationVector.x);
+                _animator.SetFloat("ForvardMove", _animationVector.z);
             }
 
-            transform.LookAt(_targetForLookAt);
+            _player.LookAt(_targetForLookAt);
         }
 
 

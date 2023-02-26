@@ -9,6 +9,7 @@ namespace TDS
     [RequireComponent(typeof(NavMeshAgent), typeof(BaseWeapon))]
     public class BaseNPC : Unit
     {
+        private bool _isAlive = true;
         protected float _distance;
         private bool _canShot = true;
 
@@ -49,10 +50,11 @@ namespace TDS
 
         protected void Attack()
         {
-            //todo
-            
-            ToShoot(_projectilesPool, _weaponTransform);
-            _actionType = ActionType.Shooting;
+            if (_isAlive)
+            {
+                ToShoot(_projectilesPool, _weaponTransform);
+                _actionType = ActionType.Shooting;
+            }
         }
 
         protected IEnumerator HoldShot()
@@ -64,12 +66,14 @@ namespace TDS
             _canShot = true;
         }
 
-        public void DestroyNPC() => StartCoroutine(DestroyNPCCoroutine());
+        public void DestroyNPC() => StartCoroutine(DestroyNPCRoutine());
 
-        private IEnumerator DestroyNPCCoroutine()
+        private IEnumerator DestroyNPCRoutine()
         {
-            _navMeshAgent.destination = transform.position; // --------------------------------------почему он не останавливается?
-            _animator.SetBool("Move", false);
+            _isAlive = false;
+            _actionType = ActionType.Die;
+            _navMeshAgent.isStopped = true;
+
             
             yield return new WaitForSeconds(_timeToDstruction);
             GameManager._instance.AddExperience(_XPForKilling);

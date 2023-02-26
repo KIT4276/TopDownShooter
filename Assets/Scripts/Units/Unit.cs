@@ -7,9 +7,6 @@ namespace TDS
     [RequireComponent(typeof(UnitParams))] 
     public class Unit : MonoBehaviour
     {
-        private float _xNorm;
-        private float _zNorm;
-        
         protected float _currentHealth;
         
         protected GameObject _projectile;
@@ -60,6 +57,7 @@ namespace TDS
                     _animator.SetTrigger("Interact");
                     break;
                 case ActionType.Die:
+                    _animator.SetBool("Move", false);
                     _animator.SetTrigger("Die");
                     break;
                 case ActionType.HitReact:
@@ -127,7 +125,13 @@ namespace TDS
             _animator.SetTrigger("Die");
 
             if (TryGetComponent<BaseNPC>(out var r)) r.DestroyNPC(); // заменить NPC_Test на итоговое имя класса
+
         }
+
+        //public void OnDestroyNPC()
+        //{
+        //    if (GetComponent<BaseNPC>()!= null) Destroy(gameObject);
+        //}
 
         public void RestoreHealth(float restore)
         {

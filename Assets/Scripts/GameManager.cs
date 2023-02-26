@@ -13,6 +13,8 @@ namespace TDS
         private static int _artifactsTaken;
         private static int _totalArtifacts;
 
+        private Data _data;
+
         [SerializeField]
         private int _artifactsOnLVL1 = 1;
         [SerializeField]
@@ -30,6 +32,8 @@ namespace TDS
         private Text _experienceText;
         [SerializeField]
         private Text _totalExperienceText;
+        [SerializeField]
+        private GameObject _infoPanel;
 
         [Space, SerializeField]
         private GameObject _player;
@@ -38,6 +42,10 @@ namespace TDS
 
         private void Start()
         {
+            _data = new Data();
+
+            if (SceneManager.GetActiveScene().name != "LVL1") _infoPanel.SetActive(false);
+
             if (_instance != null)
             {
                 Destroy(gameObject);
@@ -60,10 +68,10 @@ namespace TDS
 
         private void NextChapter()
         {
-            //-------------------------------------------------todo Events at the base between chapters, maybe a video
             _totalExperience += _experienceInChapter;
-            _experienceInChapter = 0;
-            _artifactsTaken = 0;
+            _data._totalPlayerExperience = _totalExperience;
+            //_experienceInChapter = 0;
+            //_artifactsTaken = 0;
 
             NextLVL(); //--------------------------------------------this is where the new scene loading chain starts
         }
