@@ -124,7 +124,7 @@ namespace TDS
                     break;
                 case TriggerType.LeaveTheBase:
                     GameManager._instance.MovingToLocation();
-                    Debug.Log("On Trigger LeaveTheBase Enter");
+                    _actionType = ActionType.Idle;
                     break;
                 default:
                     break;

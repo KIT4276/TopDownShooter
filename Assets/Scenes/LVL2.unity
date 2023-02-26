@@ -341,6 +341,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 55542713}
     - target: {fileID: 6580328737778131898, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
+      propertyPath: _cameraPoint
+      value: 
+      objectReference: {fileID: 1644223565}
+    - target: {fileID: 6580328737778131898, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
       propertyPath: _experienceText
       value: 
       objectReference: {fileID: 1141378360}
@@ -1165,6 +1169,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546787080}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1644223565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6580328735818542150, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
+  m_PrefabInstance: {fileID: 155591833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1676487613
 GameObject:
   m_ObjectHideFlags: 0

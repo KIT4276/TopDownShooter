@@ -37,6 +37,8 @@ namespace TDS
         [SerializeField]
         private GameObject _infoPanel;
         [SerializeField]
+        private Transform _cameraPoint;
+        [SerializeField]
         private Vector3 _locationPosition = new Vector3(-44, -1, -35);
 
         [Space, SerializeField]
@@ -86,10 +88,27 @@ namespace TDS
 
         public void MovingToLocation()
         {
+            StartCoroutine(MovingToLocationRoutine());
             
+        }
+
+        private IEnumerator MovingToLocationRoutine()
+        {
+            var waitFading = true;
+            Fader.Instance.FadeIn(() => waitFading = false);
+
+            
+
+            while (waitFading)
+                yield return null;
+
             _player.transform.position = _locationPosition;
+            _cameraPoint.position = _locationPosition;
             _infoPanel.SetActive(true);
             IsOnBase = false;
+
+            waitFading = true;
+            Fader.Instance.FadeOut(() => waitFading = false);
         }
 
         private void LevelVictory()
