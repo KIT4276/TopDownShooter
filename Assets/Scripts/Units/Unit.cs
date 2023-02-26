@@ -50,19 +50,19 @@ namespace TDS
                 case ActionType.Move:
                     _animator.SetBool("Move", true);
                     break;
-                case ActionType.Shooting:
-                    _animator.SetTrigger("Shoot");
-                    break;
-                case ActionType.Interact:
-                    _animator.SetTrigger("Interact");
-                    break;
+                //case ActionType.Shooting:
+                //    _animator.SetTrigger("Shoot");
+                    //break;
+                //case ActionType.Interact:
+                //    _animator.SetTrigger("Interact");
+                //    break;
                 case ActionType.Die:
                     _animator.SetBool("Move", false);
                     _animator.SetTrigger("Die");
                     break;
-                case ActionType.HitReact:
-                    _animator.SetTrigger("HitReact");
-                    break;
+                //case ActionType.HitReact:
+                //    _animator.SetTrigger("HitReact");
+                    //break;
                 case ActionType.Walk:
                     _animator.SetBool("Walk", true);
                     break;

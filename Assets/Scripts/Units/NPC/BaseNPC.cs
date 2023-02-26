@@ -53,7 +53,7 @@ namespace TDS
             if (_isAlive)
             {
                 ToShoot(_projectilesPool, _weaponTransform);
-                _actionType = ActionType.Shooting;
+                //_actionType = ActionType.Shooting;
             }
         }
 

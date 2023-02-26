@@ -21,7 +21,7 @@ namespace TDS
         private int _layerMask;
         private RaycastHit _hit;
         private Ray _ray;
-        private bool _isOnBase;
+        //private bool _isOnBase;
 
         [Space, SerializeField]
         private Transform _player;
@@ -36,7 +36,7 @@ namespace TDS
         {
             _controls = new PlayerControls();
             _controls.PlayerInputMapp.Attack.performed += Fire;
-            if(SceneManager.GetActiveScene().name != "LVL1") _isOnBase = true;
+            
         }
 
 
@@ -58,7 +58,7 @@ namespace TDS
             transform.position += _movement * _unitParams.MoveSpeed * Time.deltaTime;
             if (_movement != new Vector3(0f, 0f, 0f))
             {
-                if (_isOnBase)
+                if (GameManager.IsOnBase)
                 {
                     _weaponClass.PutAwayWeapon();
                     _actionType = ActionType.Walk;
@@ -123,12 +123,14 @@ namespace TDS
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.LeaveTheBase:
-                    //---------------------------------------------------------todo moving from base to location
+                    GameManager._instance.MovingToLocation();
+                    Debug.Log("On Trigger LeaveTheBase Enter");
                     break;
                 default:
                     break;
             }
         }
+
 
         private void OnEnable()
            => _controls.PlayerInputMapp.Enable();

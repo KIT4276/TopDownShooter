@@ -6,12 +6,12 @@ namespace TDS
 {
     public class Base : MonoBehaviour
     {
-        [SerializeField]
-        private ChapterManager _chapterManager;
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("OnCollisionEnter");
+            if (collision.gameObject.GetComponent<PlayerInput>() != null)
+                GameManager._instance.MovingToLocation();
+        }
 
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    if (collision.gameObject.GetComponent<PlayerInput>()) _chapterManager.LeaveTheBase();
-        //}
     }
 }

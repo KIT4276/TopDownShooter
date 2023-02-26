@@ -35,10 +35,10 @@ namespace TDS
     {
         Idle = 0, // ожидание
         Move = 1, // хотьба
-        Shooting = 2, // стрельба
-        Interact = 3, // взаимодействие
+        //Shooting = 2, // стрельба
+        //Interact = 3, // взаимодействие
         Die = 4,
-        HitReact = 5, // ранение
+        //HitReact = 5, // ранение
         Walk = 6,
     }
 

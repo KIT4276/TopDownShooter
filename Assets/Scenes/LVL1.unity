@@ -434,6 +434,14 @@ PrefabInstance:
       propertyPath: _ammoInMagText
       value: 
       objectReference: {fileID: 602263044}
+    - target: {fileID: 6580328735799754117, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
+      propertyPath: _tearWeaponImage
+      value: 
+      objectReference: {fileID: 1251642818}
+    - target: {fileID: 6580328735799754117, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
+      propertyPath: _furtherWeaponImage
+      value: 
+      objectReference: {fileID: 806922457}
     - target: {fileID: 6580328735799754118, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
       propertyPath: _player
       value: 
@@ -446,6 +454,10 @@ PrefabInstance:
       propertyPath: _projectilesPool
       value: 
       objectReference: {fileID: 1311650714}
+    - target: {fileID: 6580328737778131898, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
+      propertyPath: _infoPanel
+      value: 
+      objectReference: {fileID: 1603453688}
     - target: {fileID: 6580328737778131898, guid: 4cfdb7f77c58f444ea32c2bb1f9ad459, type: 3}
       propertyPath: _experienceText
       value: 
@@ -5002,6 +5014,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 295c13b7f0060514da7e87461fad14c4, type: 3}
   m_PrefabInstance: {fileID: 806410480}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &806922457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3787043739785664754, guid: 39c0c80afdcc8624d81e3f1ee4bf4f2c, type: 3}
+  m_PrefabInstance: {fileID: 3787043739162768311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &816883010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8225,6 +8242,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.10355767, y: 0.009536197, z: 0.08574167}
   m_Center: {x: 0.00045957044, y: -2.3283045e-10, z: 0.04118772}
+--- !u!1 &1251642818 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3787043737944254715, guid: 39c0c80afdcc8624d81e3f1ee4bf4f2c, type: 3}
+  m_PrefabInstance: {fileID: 3787043739162768311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1255929092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10219,6 +10241,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3818437593535037710, guid: 6c202368a5e27274ab269932ffa221d5, type: 3}
   m_PrefabInstance: {fileID: 1574561327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1603453688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3787043739173730406, guid: 39c0c80afdcc8624d81e3f1ee4bf4f2c, type: 3}
+  m_PrefabInstance: {fileID: 3787043739162768311}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1663924766
 PrefabInstance:

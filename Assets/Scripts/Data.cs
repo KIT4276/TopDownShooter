@@ -5,11 +5,14 @@ using UnityEngine;
 
 namespace TDS
 {
-    [Serializable]
-    public class Data : MonoBehaviour
+    public static class Data 
     {
-        public string _playerName;
-        public int _level;
-        public float _totalPlayerExperience;
+        //public static string _playerName;
+        ////public static int _level;
+        //private static int _totalPlayerExperience;
+
+        //public static int GetExperience() => _totalPlayerExperience;
+
+        //public static void SetExperience(int experience) => _totalPlayerExperience += experience;
     }
 }
