@@ -28,18 +28,26 @@ namespace TDS
         protected float _shotDlay;
         [SerializeField]
         private int _XPForKilling = 1;
+        
+
 
         [Space, SerializeField]
         protected AISttateType _aISttateType;
 
+        public float GetCurrentHealth() => _currentHealth;
+
+        public float GetMaxHealth() => _unitParams._maxHealth;
+
         protected virtual void Awake()
         {
             _navMeshAgent.enabled = true;
+            
         }
 
         protected virtual void FixedUpdate()
         {
             _distance = Vector3.Distance(_player.position, transform.position);
+            
 
             if (_distance <= _detectionDistance)
             {
@@ -47,6 +55,8 @@ namespace TDS
                 transform.LookAt(_player);
             }
         }
+
+        
 
         protected void Attack()
         {

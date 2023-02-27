@@ -73,7 +73,6 @@ namespace TDS
             _experienceText.text = _experienceInChapter.ToString();
             _totalExperienceText.text = _totalExperience.ToString();
 
-            Debug.Log(IsOnBase);
             LevelVictory();
         }
 

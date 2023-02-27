@@ -36,7 +36,8 @@ namespace TDS
             while (true)
             {
                 yield return new WaitForSeconds(_changeDirectionTime);
-                _navMeshAgent.destination = RandomPosition();
+                if (_actionType == ActionType.Die) break;
+                    _navMeshAgent.destination = RandomPosition();
             }
         }
     }
