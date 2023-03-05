@@ -30,14 +30,15 @@ namespace TDS
             DontDestroyOnLoad(gameObject);
         }
 
-        public void LoadScene(string sceneName)
+        public void LoadNextScene()
         {
             if (_isLoadiing) return;
 
             var currentSceneName = SceneManager.GetActiveScene().name;
-            if (currentSceneName == sceneName)
+            var nextSceneName = ReturnNextSceneName();
+            if (currentSceneName == nextSceneName)
                 throw new Exception("You are trying to load a scene that is already loaded");
-            StartCoroutine(LoadSceneRoutine(sceneName));
+            StartCoroutine(LoadSceneRoutine(nextSceneName));
         }
 
         private IEnumerator LoadSceneRoutine(string sceneName)

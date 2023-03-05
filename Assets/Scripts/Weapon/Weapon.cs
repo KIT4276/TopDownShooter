@@ -13,7 +13,6 @@ namespace TDS
         private Text _ammoInMagText;
         [SerializeField]
         private Text _leftAmmoText;
-
         
 
         [Space, SerializeField]
@@ -96,7 +95,6 @@ namespace TDS
             }
         }
 
-        
 
         public override bool GetAbilityToShoot()
         {
@@ -111,10 +109,6 @@ namespace TDS
                 else return false;
             }
         }
-
-        
-
-        
 
         private void OnEnable()
            => _controls.PlayerInputMapp.Enable();

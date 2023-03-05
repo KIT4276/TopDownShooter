@@ -21,7 +21,6 @@ namespace TDS
         private int _layerMask;
         private RaycastHit _hit;
         private Ray _ray;
-        //private bool _isOnBase;
 
         [Space, SerializeField]
         private Transform _player;
@@ -38,7 +37,6 @@ namespace TDS
             _controls.PlayerInputMapp.Attack.performed += Fire;
             
         }
-
 
         private void FixedUpdate()
         {
@@ -117,7 +115,6 @@ namespace TDS
                     Destroy(other.gameObject);
                     break;
                 case TriggerType.Artifact:
-                    _animator.enabled = false; // -----------------------------todo stop animation more carefully
                     GameManager._instance.AddExperience((int)other.GetComponent<TriggerComponent>().GetValue());
                     GameManager._instance.ArtifactCapture();
                     Destroy(other.gameObject);
@@ -130,6 +127,15 @@ namespace TDS
                     break;
             }
         }
+
+        protected override void Death()
+            => base.Death();
+
+        public void StopAnimation()
+            => _animator.enabled = false; // -----------------------------todo stop animation more carefully
+
+        public void ReternWeapon()
+            => _weaponClass.ReternTearWeapon();
 
 
         private void OnEnable()

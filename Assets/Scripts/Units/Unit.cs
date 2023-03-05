@@ -77,7 +77,7 @@ namespace TDS
 
             if (_isShotPossible)
             {
-                OnShootAnimation();
+                //OnShootAnimation();
                 _projectile = Instantiate(Resources.Load<GameObject>(_weaponClass.GetProjectile()),
                     weapon.transform.position, weapon.transform.rotation, parent);
                 _weaponClass.CallOnShoot();
@@ -91,10 +91,6 @@ namespace TDS
 #endif
         }
 
-        protected void OnShootAnimation()
-        {
-            _animator.SetTrigger("Shoot");
-        }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
@@ -120,13 +116,8 @@ namespace TDS
             if (_currentHealth <= 0) Death();
         }
 
-        protected void Death()
-        {
-            _animator.SetTrigger("Die");
-
-            if (TryGetComponent<BaseNPC>(out var r)) r.DestroyNPC(); // заменить NPC_Test на итоговое имя класса
-
-        }
+        protected virtual void Death()
+            => _animator.SetTrigger("Die");
 
         //public void OnDestroyNPC()
         //{

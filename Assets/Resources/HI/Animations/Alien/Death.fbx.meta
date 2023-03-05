@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: 0bef6e0b74ae7674cbc69e6f976f9500
+guid: 54b799f209de69e4b81149d85810fdfc
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DarkGrey
-    second: {fileID: 2100000, guid: 3450e91fa715ba94aa384fb005e8bc46, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Grey
-    second: {fileID: 2100000, guid: 094480e067f5721418f71771f29b3a07, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Texture_Fence
-    second: {fileID: 2100000, guid: 9294ec830283bec418935b4a90624115, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: White
-    second: {fileID: 2100000, guid: 29f0d3ea362a2c0468357cc20206342e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Yellow
-    second: {fileID: 2100000, guid: 25b5b8a722975c04d9b7f3bff0d4bbe3, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

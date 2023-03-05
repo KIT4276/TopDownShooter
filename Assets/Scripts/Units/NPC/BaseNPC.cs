@@ -28,7 +28,6 @@ namespace TDS
         protected float _shotDlay;
         [SerializeField]
         private int _XPForKilling = 1;
-        
 
 
         [Space, SerializeField]
@@ -39,15 +38,12 @@ namespace TDS
         public float GetMaxHealth() => _unitParams._maxHealth;
 
         protected virtual void Awake()
-        {
-            _navMeshAgent.enabled = true;
-            
-        }
+            => _navMeshAgent.enabled = true;
 
         protected virtual void FixedUpdate()
         {
             _distance = Vector3.Distance(_player.position, transform.position);
-            
+
 
             if (_distance <= _detectionDistance)
             {
@@ -56,14 +52,17 @@ namespace TDS
             }
         }
 
-        
+        protected override void Death()
+        {
+            base.Death();
+            StartCoroutine(DestroyNPCRoutine());
+        }
 
         protected void Attack()
         {
             if (_isAlive)
             {
                 ToShoot(_projectilesPool, _weaponTransform);
-                //_actionType = ActionType.Shooting;
             }
         }
 
@@ -76,7 +75,7 @@ namespace TDS
             _canShot = true;
         }
 
-        public void DestroyNPC() => StartCoroutine(DestroyNPCRoutine());
+        //public void DestroyNPC() => StartCoroutine(DestroyNPCRoutine());
 
         private IEnumerator DestroyNPCRoutine()
         {

@@ -15,14 +15,19 @@ namespace TDS
 
         protected override void Awake()
         {
+            base.Awake();
             _startPosition = transform.position;
-            _actionType = ActionType.Move;
+            //_actionType = ActionType.Move;
             StartCoroutine(ChangeDirection());
         }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if (_navMeshAgent.destination.x - transform.position.x <= _navMeshAgent.stoppingDistance &&
+                _navMeshAgent.destination.y - transform.position.y <= _navMeshAgent.stoppingDistance)
+                _actionType = ActionType.Idle;
         }
 
         private Vector3 RandomPosition()
@@ -37,7 +42,9 @@ namespace TDS
             {
                 yield return new WaitForSeconds(_changeDirectionTime);
                 if (_actionType == ActionType.Die) break;
-                    _navMeshAgent.destination = RandomPosition();
+                    
+                _navMeshAgent.destination = RandomPosition();
+                _actionType = ActionType.Move;
             }
         }
     }

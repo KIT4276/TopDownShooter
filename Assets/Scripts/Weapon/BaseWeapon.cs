@@ -61,8 +61,6 @@ namespace TDS
                 _leftAmmoÒear += value;
                 if (_ammoInMagÒear == 0) Reload();
             }
-            //Debug.Log("_leftAmmoÒear " + _leftAmmoÒear);
-            //Debug.Log("_leftAmmoFurther " + _leftAmmoFurther);
         }
 
         protected void Reload()
@@ -101,6 +99,9 @@ namespace TDS
             _furtherWeaponObject.SetActive(false);
             _tearWeaponObject.SetActive(false);
         }
+
+        public void ReternTearWeapon()
+            => _tearWeaponObject.SetActive(true);
 
         public virtual bool GetAbilityToShoot() => true;
 

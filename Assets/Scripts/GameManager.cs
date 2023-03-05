@@ -13,10 +13,6 @@ namespace TDS
         private static int _artifactsTaken;
         private static int _totalArtifacts;
 
-        
-
-        //private Data _data;
-
         [SerializeField]
         private int _artifactsOnLVL1 = 1;
         [SerializeField]
@@ -50,11 +46,11 @@ namespace TDS
 
         private void Start()
         {
-            //_data = new Data();
-            //_totalExperience =  Data.GetExperience();
-            if (SceneManager.GetActiveScene().name != "LVL1") IsOnBase = true;
-
-            if (SceneManager.GetActiveScene().name != "LVL1") _infoPanel.SetActive(false);
+            if (SceneManager.GetActiveScene().name != "LVL1")
+            {
+                IsOnBase = true;
+                _infoPanel.SetActive(false);
+            }
 
             if (_instance != null)
             {
@@ -86,17 +82,12 @@ namespace TDS
         }
 
         public void MovingToLocation()
-        {
-            StartCoroutine(MovingToLocationRoutine());
-            
-        }
+            => StartCoroutine(MovingToLocationRoutine());
 
         private IEnumerator MovingToLocationRoutine()
         {
             var waitFading = true;
             Fader.Instance.FadeIn(() => waitFading = false);
-
-            
 
             while (waitFading)
                 yield return null;
@@ -104,6 +95,7 @@ namespace TDS
             _player.transform.position = _locationPosition;
             _cameraPoint.position = _locationPosition;
             _infoPanel.SetActive(true);
+            _player.GetComponentInParent<PlayerInput>().ReternWeapon();
             IsOnBase = false;
 
             waitFading = true;
@@ -112,8 +104,12 @@ namespace TDS
 
         private void LevelVictory()
         {
-            if (_artifactsTaken == _totalArtifacts) 
+            if (_artifactsTaken == _totalArtifacts)
+            {
+                _player.GetComponentInParent<PlayerInput>().StopAnimation();
                 NextChapter();
+            }
+
         }
 
         private int ReturnArtifactsOnLVL()
@@ -144,13 +140,16 @@ namespace TDS
         }
 
         public void NextLVL()
-            => LVLManager._instance.LoadScene(LVLManager._instance.ReturnNextSceneName());
+            => LVLManager._instance.LoadNextScene();
 
         public void ArtifactCapture()
             => _artifactsTaken++;
-            
+
 
         public void AddExperience(int value)
-            => _experienceInChapter+= value;
+        {
+            _experienceInChapter += value;
+            Debug.Log("AddExperience " + value);
+        }
     }
 }
